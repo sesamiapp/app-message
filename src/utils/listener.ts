@@ -1,9 +1,9 @@
 export const initListener = () => {
     if(!window.onmessage){
-        window.onmessage = event => {
+        window.onmessage = (event: MessageEvent<any>) => {
             window.dispatchEvent(new CustomEvent(event.data.action, {
-                detail: {
-                    payload: event.data.payload
+                detail: { //todo: can remove details?
+                    event
                 }
             }))
         }
