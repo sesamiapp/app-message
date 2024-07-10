@@ -8,8 +8,8 @@ export const getToken = () => {
     }
     window.top?.postMessage(data)
     return new Promise(resolve => {
-        window.addEventListener('RECEIVE_TOKEN', (event: any) => {
-            resolve(event.detail.payload.token)
+        window.addEventListener(Action.RECEIVE_TOKEN, (e: any) => {
+            resolve(e.detail.event.data.payload.token)
         })
     })
 }
