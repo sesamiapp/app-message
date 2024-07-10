@@ -1,15 +1,16 @@
+import { Action } from '../types/message.type'
 import { initListener } from '../utils/listener'
 
-export const onNext = (onNext: (payload: any) => void) => {
+export const onNext = (callback: () => void) => {
     initListener()
-    window.addEventListener('ON_NEXT', (event: any) => {
-        onNext(event.detail.payload)
+    window.addEventListener(Action.ON_NEXT, () => {
+        callback()
     })
 }
 
-export const onPrevious = (onPrevious: (payload: any) => void) => {
+export const onPrevious = (callback: () => void) => {
     initListener()
-    window.addEventListener('ON_PREVIOUS', (event: any) => {
-        onPrevious(event.detail.payload)
+    window.addEventListener(Action.ON_PREVIOUS, () => {
+        callback()
     })
 }
