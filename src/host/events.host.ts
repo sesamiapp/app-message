@@ -1,4 +1,4 @@
-import { Action, Message } from '../types/message.type'
+import { Action, Message } from '../types'
 
 export const sendNext = (iframe: HTMLIFrameElement) => {
     const data: Message = {

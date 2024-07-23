@@ -1,4 +1,4 @@
-import { Action } from '../types/message.type'
+import { Action } from '../types'
 import { initListener } from '../utils/listener'
 
 export const onNext = (callback: () => void) => {
