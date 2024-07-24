@@ -2,6 +2,7 @@ import { getToken } from './authentication.app'
 import { getInit } from './init.app'
 import { Environment, TeamMember } from '../types'
 import { getTokenExpiration, initListener } from '../utils'
+import { onNext } from './events.app'
 
 export class Sesami {
 
@@ -73,6 +74,8 @@ export class Sesami {
             return token
         }
     } : undefined
+
+    onNext = this.environment === Environment.EXPERIENCE_INSTANT_BOOKING ? onNext : undefined
 
 }
 

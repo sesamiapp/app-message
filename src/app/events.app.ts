@@ -1,12 +1,25 @@
-import { Action } from '../types'
-import { initListener } from '../utils/listener'
+import { Action, Message } from '../types'
 
 export const onNext = (callback: () => void) => {
-    initListener()
-    window.addEventListener(Action.ON_NEXT, () => callback())
+    window.addEventListener(Action.NEXT, () => callback())
 }
 
-export const onPrevious = (callback: () => void) => {
-    initListener()
-    window.addEventListener(Action.ON_PREVIOUS, () => callback())
+export const acceptNext = () => {
+    const data: Message = {
+        action: Action.NEXT,
+        payload: {
+            isAccepted: true
+        }
+    }
+    window.top?.postMessage(data)
+}
+
+export const abortNext = () => {
+    const data: Message = {
+        action: Action.NEXT,
+        payload: {
+            isAccepted: false
+        }
+    }
+    window.top?.postMessage(data)
 }

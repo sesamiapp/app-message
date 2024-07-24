@@ -1,15 +1,14 @@
 import { Action, Message } from '../types'
 
-export const sendNext = (iframe: HTMLIFrameElement) => {
+//Todo: call them inside an APP object instance(and pass the iframe on construct)
+export const askNext = (iframe: HTMLIFrameElement) => {
     const data: Message = {
-        action: Action.ON_NEXT
+        action: Action.NEXT
     }
     iframe.contentWindow?.postMessage(data)
-}
-
-export const sendPrevious = (iframe: HTMLIFrameElement) => {
-    const data: Message = {
-        action: Action.ON_PREVIOUS
-    }
-    iframe.contentWindow?.postMessage(data)
+    return new Promise(resolve => {
+        window.addEventListener(Action.NEXT, (e: any) => {
+            resolve(e.detail.event.data.payload.isAccepted)
+        })
+    })
 }
