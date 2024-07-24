@@ -1,5 +1,5 @@
 import { Action, Message } from '../types'
-import { initListener } from '../utils/listener'
+import { initListener } from '../utils'
 
 export const onGetToken = (callback: (event: MessageEvent<any>) => void) => {
     initListener()

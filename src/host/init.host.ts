@@ -1,5 +1,5 @@
 import { Action, Message, Environment } from '../types'
-import { initListener } from '../utils/listener'
+import { initListener } from '../utils'
 
 export const onInit = (callback: (event: MessageEvent<any>) => void) => {
     initListener()

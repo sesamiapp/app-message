@@ -1,9 +1,7 @@
 import { getToken } from './authentication.app'
 import { getInit } from './init.app'
-import { Environment } from '../types'
-import { initListener } from '../utils'
-import { getAccessTokenExpiration } from 'utils/parse-jwt-token'
-import { TeamMember } from 'types'
+import { Environment, TeamMember } from '../types'
+import { getTokenExpiration, initListener } from '../utils'
 
 export class Sesami {
 
@@ -80,7 +78,7 @@ export class Sesami {
 
 const isTokenExpired = (token: string) => {
     const now = new Date()
-    if((getAccessTokenExpiration(token) - 30)*1000 > now.getTime()){ // 30 seconds offset
+    if((getTokenExpiration(token) - 30)*1000 > now.getTime()){ // 30 seconds offset
         return false
     }else{
         return true
