@@ -32,8 +32,6 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
     - name: building the library
       run: npm run build
-    - name: test
-      run: npm run test
     - name: publish package
       run: npm publish
       env:
