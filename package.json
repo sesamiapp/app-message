@@ -6,7 +6,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "rm -r ./build/* && tsc --outfile ./build/index.js --declaration",
+    "build": "tsc --outfile ./build/index.js --declaration",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sesami Development Team",
