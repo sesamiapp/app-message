@@ -1,2 +1,2 @@
 # app-message
-A library to connect the apps to their host
+A library to connect Sesami Apps to their host.
