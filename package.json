@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "A library to connect Sesami Apps to their host.",
   "repository": "git://github.com/sesamiapp/app-message.git",
-  "main": "index.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
+    "build": "rm -r ./build/* && tsc --outfile ./build/index.js --declaration",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sesami Development Team",
   "license": "ISC",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/sesamiapp"
+  },
+  "dependencies": {
+    "typescript": "^5.5.4"
   }
 }
