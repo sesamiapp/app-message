@@ -13,5 +13,8 @@
   "license": "ISC",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/sesamiapp"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
   }
 }
