@@ -27,7 +27,7 @@ jobs:
         echo "@sesamiapp:registry=https://npm.pkg.github.com/" > ~/.npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
     - name: install dependencies
-      run: npm ci
+      run: npm install
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
     - name: building the library

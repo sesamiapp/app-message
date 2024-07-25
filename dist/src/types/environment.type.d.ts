@@ -1,4 +1,0 @@
-export declare enum Environment {
-    ADMIN_APP = "ADMIN_APP",
-    EXPERIENCE_INSTANT_BOOKING = "EXPERIENCE_INSTANT_BOOKING"
-}

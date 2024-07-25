@@ -1,12 +1,15 @@
 {
+    "exclude": ["node_modules", "build"],
     "compilerOptions": {
+        "lib": ["ESNext", "DOM"],
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleDetection": "force",
+        "moduleResolution": "Node",
+        "outDir": "build",
         "declaration": true,
-        "outDir": "./dist/",
-        "noImplicitAny": true,
-        "module": "es6",
-        "target": "es5",
-        "jsx": "react",
-        "allowJs": true,
-        "moduleResolution": "node"
+        "declarationDir": "build",
+        "skipLibCheck": true,
+        "strict": true
     }
 }
