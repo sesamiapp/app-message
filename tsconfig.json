@@ -8,7 +8,6 @@
         "moduleResolution": "Node",
         "outDir": "build",
         "declaration": true,
-        "declarationDir": "build",
         "skipLibCheck": true,
         "strict": true
     }
