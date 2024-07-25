@@ -14,7 +14,7 @@ export const acceptNext = () => {
     window.top?.postMessage(data)
 }
 
-export const abortNext = () => {
+export const rejectNext = () => {
     const data: Message = {
         action: Action.NEXT,
         payload: {
