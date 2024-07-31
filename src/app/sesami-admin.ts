@@ -1,12 +1,12 @@
 import { getToken } from './authentication.app'
 import { getInit } from './init.app'
-import { Environment } from '../types'
 import { initListener, isTokenExpired } from '../utils'
+import { AdminTarget } from '../types'
 
 export class SesamiAdmin {
 
-    private clientId: string
-    private environment: Environment | null = null
+    private target: AdminTarget | null = null
+    private zone: AdminTarget | null = null
     private shopId: string
     private locale: string
     private token: string | null = null
@@ -16,12 +16,10 @@ export class SesamiAdmin {
     getLocale = () => this.locale
 
     constructor(
-        clientId: string,
-        environment: Environment,
+        environment: AdminTarget,
         shopId: string,
         locale: string
     ){
-        this.clientId = clientId
         this.environment = environment
         this.shopId = shopId
         this.locale = locale
