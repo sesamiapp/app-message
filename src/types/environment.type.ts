@@ -1,4 +1,7 @@
-export enum Environment {
-    ADMIN_APP = 'ADMIN_APP',
-    EXPERIENCE_INSTANT_BOOKING = 'EXPERIENCE_INSTANT_BOOKING'
+export enum AdminTarget {
+    APP_LAUNCHER = 'APP_LAUNCHER',
+}
+
+export enum ExperienceTarget {
+    INSTANT_BOOKING = 'INSTANT_BOOKING'
 }
