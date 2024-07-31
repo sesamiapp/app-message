@@ -2,38 +2,48 @@ import { askNext } from './events.host'
 import { onInit, sendAdminInit } from './init.host'
 import { onGetToken, sendToken } from './authentication.host'
 import { initListener } from '../utils'
-import { Environment } from '../types'
+import { AdminTarget } from '../types'
 
 export class AppAdmin {
 
     private iframe: HTMLIFrameElement
+    private target: AdminTarget
+    private shopId: string
+    private locale: string
     private source: MessageEventSource | null = null
 
-    constructor(iframe: HTMLIFrameElement){
+    constructor(
+        iframe: HTMLIFrameElement,
+        target: AdminTarget,
+        shopId: string,
+        locale: string,
+        getToken: () => Promise<string>
+    ){
+        
         this.iframe = iframe
-        initListener()
-    }
+        this.target = target,
+        this.shopId = shopId,
+        this.locale = locale
 
-    onInit = (callback: () => void) => {
+        initListener()
+
         onInit(source => {
             this.source = source
-            callback()
+            sendAdminInit(
+                this.source,
+                this.target,
+                this.shopId,
+                this.locale
+            )
         })
-    }
 
-    sendInit = (
-        environment: Environment,
-        shopId: string,
-        locale: string
-    ) => sendAdminInit(
-        this.source,
-        environment,
-        shopId,
-        locale
-    )
+        onGetToken(async () => {
+            const token = await getToken()
+            this.source && sendToken(this.source, token)
+        })
+
+    }
     
-    onGetToken = onGetToken
-    sendToken = sendToken
     askNext = () => askNext(this.iframe)
 
 }
