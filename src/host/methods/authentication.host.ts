@@ -1,10 +1,10 @@
-import { Action, Message } from '../types'
+import { Action, Message } from '../../types'
 
 export const onGetToken = (callback: () => void) => {
     window.addEventListener(Action.TOKEN, () => callback())
 }
 
-export const sendToken = (source: MessageEventSource, token: string) => {
+export const sendToken = (source: MessageEventSource, token: string | null) => {
     const data: Message = {
         action: Action.TOKEN,
         payload: {
