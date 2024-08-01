@@ -1,4 +1,4 @@
-import { Action, Message } from '../types'
+import { Action, Message } from '../../types'
 
 export const getInit = () => {
     const data: Message = {
