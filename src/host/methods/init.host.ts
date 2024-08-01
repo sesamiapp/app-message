@@ -1,4 +1,4 @@
-import { Action, Message, TeamMember } from 'utils/app-message/types'
+import { Action, Message, TeamMember } from '../../types'
 
 export const onInit = (callback: (source: MessageEventSource) => void) => {
     window.addEventListener(Action.INIT, (e: any) => {
