@@ -6,11 +6,11 @@ export class SesamiExperienceInstantBookingFormBottom {
 
     private shopId: string
     private locale: string
-    private productId: string | null = null
-    private variantId: string | null = null
-    private quantity: string | null = null
-    private teamMember: TeamMember | null = null
-    private slot: Date | null = null
+    private productId: string
+    private variantId: string
+    private quantity: number
+    private teamMember: TeamMember
+    private slot: Date
 
     getShopId     = () => this.shopId
     getLocale     = () => this.locale
@@ -25,7 +25,7 @@ export class SesamiExperienceInstantBookingFormBottom {
         locale: string,
         productId: string,
         variantId: string,
-        quantity: string,
+        quantity: number,
         teamMember: TeamMember,
         slot: Date
     ){
@@ -53,8 +53,8 @@ export class SesamiExperienceInstantBookingFormBottom {
         )
     }
     
-    onNext = onNext
-    acceptNext = acceptNext
-    rejectNext = rejectNext
+    onConfirm = onNext
+    acceptConfirm = acceptNext
+    rejectConfirm = rejectNext
 
 }
