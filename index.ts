@@ -1,5 +1,3 @@
-export * from './src/host/app-admin-app-loader-main'
-export * from './src/host/app-experience-instant-booking-form-bottom'
-export * from './src/client/sesami-admin-app-loader-main'
-export * from './src/client/sesami-experience-instant-booking-form-bottom'
+export * from './src/host'
+export * from './src/client'
 export * from './src/types'
