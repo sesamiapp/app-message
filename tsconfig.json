@@ -10,7 +10,7 @@
         "declaration": true,
         "skipLibCheck": true,
         "strict": true,
-        "baseUrl": "./src",
+        "baseUrl": "index.js",
     },
     "include": [
         "src"
