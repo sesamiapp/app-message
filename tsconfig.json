@@ -9,8 +9,7 @@
         "outDir": "build",
         "declaration": true,
         "skipLibCheck": true,
-        "strict": true,
-        "baseUrl": "./index.ts",
+        "strict": true
     },
     "include": [
         "src"
