@@ -1,5 +1,3 @@
-export { AppAdminAppLoaderMain } from './src/host/app-admin-app-loader-main'
-export { AppExperienceInstantBookingFormBottom } from './src/host/app-experience-instant-booking-form-bottom'
-export { SesamiAdminAppLoaderMain } from './src/client/sesami-admin-app-loader-main'
-export { SesamiExperienceInstantBookingFormBottom } from './src/client/sesami-experience-instant-booking-form-bottom'
-export * from './src/types'
+export * from './src/host/index'
+export * from './src/client/index'
+export * from './src/types/index'
