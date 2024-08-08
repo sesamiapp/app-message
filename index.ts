@@ -1,5 +1,3 @@
-export * from './src/app/sesami-admin'
-export * from './src/app/sesami-experience'
-export * from './src/host/app-admin'
-export * from './src/host/app-experience'
+export * from './src/host'
+export * from './src/client'
 export * from './src/types'
