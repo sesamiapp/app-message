@@ -10,7 +10,7 @@
         "declaration": true,
         "skipLibCheck": true,
         "strict": true,
-        "baseUrl": "index.js",
+        "baseUrl": "./index.ts",
     },
     "include": [
         "src"

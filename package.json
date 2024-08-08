@@ -1,6 +1,6 @@
 {
   "name": "@sesamiapp/app-message",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "A library to connect Sesami Apps to their host.",
   "homepage": "https://github.com/sesamiapp/app-message#readme",
   "repository": {
