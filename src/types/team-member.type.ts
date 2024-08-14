@@ -1,6 +1,6 @@
-export type Resource = {
+export type TeamMember = {
     id: string | null
     name: string
-    image: string | null
+    image: string
     description: string | null
 }

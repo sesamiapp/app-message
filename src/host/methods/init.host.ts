@@ -1,4 +1,4 @@
-import { Action, Message, Resource } from '../../types'
+import { Action, Message, TeamMember } from '../../types'
 
 export const onInit = (callback: (source: MessageEventSource) => void) => {
     window.addEventListener(Action.INIT, (e: any) => {
@@ -9,15 +9,13 @@ export const onInit = (callback: (source: MessageEventSource) => void) => {
 export const sendAdminInit = (
     source: MessageEventSource | null,
     shopId: string,
-    locale: string,
-    extra?: object
+    locale: string
 ) => {
     const data: Message = {
         action: Action.INIT,
         payload: {
             shopId,
-            locale,
-            extra
+            locale
         }
     }
     source?.postMessage(data)
@@ -26,27 +24,23 @@ export const sendAdminInit = (
 export const sendExperienceInit = (
     source: MessageEventSource | null,
     shopId: string,
+    locale: string,
     productId: string,
     variantId: string,
-    quantity: number,
-    resources: Resource[],
-    locale: string,
-    timezone: string,
-    slot: Date,
-    extra?: object
+    quantity: string,
+    teamMember: TeamMember,
+    slot: Date
 ) => {
     const data: Message = {
         action: Action.INIT,
         payload: {
             shopId,
+            locale,
             productId,
             variantId,
             quantity,
-            resources,
-            locale,
-            timezone,
-            slot,
-            extra
+            teamMember,
+            slot
         }
     }
     source?.postMessage(data)
