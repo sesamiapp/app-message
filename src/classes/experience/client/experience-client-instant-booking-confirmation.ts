@@ -2,7 +2,7 @@ import { ExperienceClientBase, ExperienceClientBaseProps } from './experience-cl
 import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/sesami'
 import { initListener } from '../../../helpers'
 
-export class ExperienceClientInstantBookingFinal extends ExperienceClientBase {
+export class ExperienceClientInstantBookingConfirmation extends ExperienceClientBase {
 
     private appointmentId: string
 
@@ -18,7 +18,7 @@ export class ExperienceClientInstantBookingFinal extends ExperienceClientBase {
     static init = async () => {
         initListener()
         const payload: any = await getInit()
-        return new ExperienceClientInstantBookingFinal({
+        return new ExperienceClientInstantBookingConfirmation({
             shopId: payload.shopId,
             productId: payload.productId,
             variantId: payload.variantId,
