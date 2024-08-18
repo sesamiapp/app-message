@@ -1,6 +1,6 @@
 import { AdminClientBase, AdminClientBaseProps } from './admin-client-base'
 import { getInit, showNotification } from '../../../methods/client'
-import { initListener } from '../../../helpers'
+import { getUrlParam, initListener } from '../../../helpers'
 import { Appointment } from '../../../types'
 
 export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
@@ -18,8 +18,10 @@ export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
     
     static init = async () => {
         initListener()
-        const payload: any = await getInit()
+        const id = getUrlParam('id') ?? ''
+        const payload: any = await getInit(id)
         return new AdminClientAppointmentDetailsInfo({
+            id,
             shopId: payload.shopId,
             locale: payload.locale,
             appointment: payload.extra.appointment
