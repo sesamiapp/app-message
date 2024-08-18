@@ -1,5 +1,5 @@
 import { AdminClientBase, AdminClientBaseProps } from './admin-client-base'
-import { getInit, showNotification } from '../../../methods/sesami'
+import { getInit, showNotification } from '../../../methods/client'
 import { initListener } from '../../../helpers'
 import { Appointment } from '../../../types'
 
