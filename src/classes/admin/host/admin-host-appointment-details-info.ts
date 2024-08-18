@@ -8,7 +8,7 @@ export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
         onNotification: (message: string, type: NotificationType) => void
     }){
         super(props)
-        onNotification(props.onNotification)
+        onNotification(this.id, props.onNotification)
     }
 
 }
