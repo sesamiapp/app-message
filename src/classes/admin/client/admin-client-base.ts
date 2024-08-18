@@ -1,5 +1,5 @@
 import { getToken, initPageSizeListener } from '../../../methods/client'
-import { isTokenExpired } from '../../../helpers'
+import { getUrlParam, isTokenExpired } from '../../../helpers'
 
 export type AdminClientBaseProps = {
     shopId: string,
@@ -8,6 +8,7 @@ export type AdminClientBaseProps = {
 
 export class AdminClientBase {
 
+    private id: string
     private shopId: string
     private locale: string
     private token: string | null = null
@@ -16,6 +17,7 @@ export class AdminClientBase {
     getLocale = () => this.locale
 
     constructor(props: AdminClientBaseProps){
+        this.id = getUrlParam('id') ?? ''
         this.shopId = props.shopId
         this.locale = props.locale
         initPageSizeListener()
