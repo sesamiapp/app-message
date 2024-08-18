@@ -1,7 +1,8 @@
+import { getEvent } from '../../helpers'
 import { Action, Message } from '../../types'
 
-export const onGetToken = (callback: () => void) => {
-    window.addEventListener(Action.TOKEN, () => callback())
+export const onGetToken = (id: string, callback: () => void) => {
+    window.addEventListener(getEvent(id, Action.TOKEN), () => callback())
 }
 
 export const sendToken = (source: MessageEventSource, token: string | null) => {

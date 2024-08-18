@@ -1,7 +1,7 @@
 export enum Action {
     INIT = 'INIT',
     TOKEN = 'TOKEN',
-    HEIGHT_CHANGE = 'HEIGHT_CHANGE',
+    HEIGHT = 'HEIGHT',
     NEXT = 'NEXT',
     BACK = 'BACK',
     NOTIFICATION = 'NOTIFICATION',

@@ -1,7 +1,8 @@
+import { getEvent } from '../../helpers'
 import { Action, Message, Resource } from '../../types'
 
-export const onInit = (callback: (source: MessageEventSource) => void) => {
-    window.addEventListener(Action.INIT, (e: any) => {
+export const onInit = (id: string, callback: (source: MessageEventSource) => void) => {
+    window.addEventListener(getEvent(id, Action.INIT), (e: any) => {
         callback(e.detail.event.source)
     })
 }

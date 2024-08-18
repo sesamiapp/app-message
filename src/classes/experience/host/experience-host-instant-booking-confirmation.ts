@@ -1,5 +1,5 @@
 import { ExperienceHostBase } from './experience-host-base'
-import { askNext } from '../../../methods/app'
+import { askNext } from '../../../methods/host'
 
 export class ExperienceHostInstantBookingConfirmation extends ExperienceHostBase {
 

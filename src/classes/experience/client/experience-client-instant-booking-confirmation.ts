@@ -1,5 +1,5 @@
 import { ExperienceClientBase, ExperienceClientBaseProps } from './experience-client-base'
-import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/sesami'
+import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { initListener } from '../../../helpers'
 
 export class ExperienceClientInstantBookingConfirmation extends ExperienceClientBase {

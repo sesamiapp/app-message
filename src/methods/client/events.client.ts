@@ -4,7 +4,7 @@ import { NotificationType } from '../../types'
 export const initPageSizeListener = () => {
     const resizeObserver = new ResizeObserver(entries => {
         const data: Message = {
-            action: Action.HEIGHT_CHANGE,
+            action: Action.HEIGHT,
             payload: {
                 height: entries[0].target.clientHeight
             }

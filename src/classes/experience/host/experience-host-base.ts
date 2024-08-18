@@ -1,4 +1,4 @@
-import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/app'
+import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/host'
 import { initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
@@ -18,6 +18,7 @@ export type ExperienceHostBaseProps = {
 
 export class ExperienceHostBase {
 
+    private id: string
     protected source: MessageEventSource | null = null
     protected sessionId: string
     protected shopId: string
@@ -42,9 +43,11 @@ export class ExperienceHostBase {
         this.timezone = props.timezone
         this.slot = props.slot
 
+        this.id = '' //todo: get it from the url
+
         initListener()
 
-        onInit((source: MessageEventSource) => {
+        onInit(this.id, (source: MessageEventSource) => {
             this.source = source
             sendExperienceInit(
                 this.source,
@@ -61,7 +64,7 @@ export class ExperienceHostBase {
             )
         })
 
-        props.setHeight && onHeightChange(props.setHeight)
+        props.setHeight && onHeightChange(this.id, props.setHeight)
 
     }
 

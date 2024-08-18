@@ -1,7 +1,8 @@
+import { getEvent } from '../../helpers'
 import { Action, Message, NotificationType } from '../../types'
 
-export const onHeightChange = (callback: (height: number) => void) => {
-    window.addEventListener(Action.HEIGHT_CHANGE, (e: any) => (
+export const onHeightChange = (id: string, callback: (height: number) => void) => {
+    window.addEventListener(getEvent(id, Action.HEIGHT), (e: any) => (
         callback(e.detail.event.data.payload.height)
     ))
 }
