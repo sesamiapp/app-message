@@ -18,7 +18,7 @@ export type ExperienceHostBaseProps = {
 
 export class ExperienceHostBase {
 
-    private id: string
+    protected id: string
     protected source: MessageEventSource | null = null
     protected sessionId: string
     protected shopId: string
@@ -49,6 +49,7 @@ export class ExperienceHostBase {
         onInit(this.id, (source: MessageEventSource) => {
             this.source = source
             sendExperienceInit(
+                this.id,
                 this.source,
                 this.sessionId,
                 this.shopId,
