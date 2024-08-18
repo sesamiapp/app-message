@@ -1,7 +1,7 @@
 import { Action } from './action.type'
 
 export type Message = {
-    action: Action,
+    action: string,
     token?: string,
     payload?: any
 }
