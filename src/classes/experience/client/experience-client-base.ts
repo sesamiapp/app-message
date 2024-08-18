@@ -1,4 +1,4 @@
-import { initPageSizeListener } from '../../../methods/sesami'
+import { initPageSizeListener } from '../../../methods/client'
 import { Resource } from '../../../types'
 
 export type ExperienceClientBaseProps = {
