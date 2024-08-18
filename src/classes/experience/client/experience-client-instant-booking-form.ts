@@ -8,6 +8,7 @@ export class ExperienceClientInstantBookingForm extends ExperienceClientBase{
         initListener()
         const payload: any = await getInit()
         return new ExperienceClientInstantBookingForm({
+            sessionId: payload.sessionId,
             shopId: payload.shopId,
             productId: payload.productId,
             variantId: payload.variantId,

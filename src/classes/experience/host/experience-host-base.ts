@@ -3,6 +3,7 @@ import { initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
 export type ExperienceHostBaseProps = {
+    sessionId: string
     shopId: string
     productId: string
     variantId: string
@@ -18,6 +19,7 @@ export type ExperienceHostBaseProps = {
 export class ExperienceHostBase {
 
     protected source: MessageEventSource | null = null
+    protected sessionId: string
     protected shopId: string
     protected productId: string
     protected variantId: string
@@ -30,6 +32,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
+        this.sessionId = props.sessionId
         this.shopId = props.shopId
         this.productId = props.productId
         this.variantId = props.variantId
@@ -45,6 +48,7 @@ export class ExperienceHostBase {
             this.source = source
             sendExperienceInit(
                 this.source,
+                this.sessionId,
                 this.shopId,
                 this.productId,
                 this.variantId,

@@ -25,6 +25,7 @@ export const sendAdminInit = (
 
 export const sendExperienceInit = (
     source: MessageEventSource | null,
+    sessionId: string,
     shopId: string,
     productId: string,
     variantId: string,
@@ -38,6 +39,7 @@ export const sendExperienceInit = (
     const data: Message = {
         action: Action.INIT,
         payload: {
+            sessionId,
             shopId,
             productId,
             variantId,

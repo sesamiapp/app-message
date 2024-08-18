@@ -2,6 +2,7 @@ import { initPageSizeListener } from '../../../methods/sesami'
 import { Resource } from '../../../types'
 
 export type ExperienceClientBaseProps = {
+    sessionId: string,
     shopId: string,
     productId: string,
     variantId: string,
@@ -14,6 +15,7 @@ export type ExperienceClientBaseProps = {
 
 export class ExperienceClientBase {
 
+    private sessionId: string
     private shopId: string
     private productId: string
     private variantId: string
@@ -23,6 +25,7 @@ export class ExperienceClientBase {
     private timezone: string
     private slot: Date
 
+    getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
     getProductId = () => this.productId
     getVariantId = () => this.variantId
@@ -33,6 +36,7 @@ export class ExperienceClientBase {
     getSlot      = () => this.slot
 
     constructor(props: ExperienceClientBaseProps){
+        this.sessionId = props.sessionId
         this.shopId    = props.shopId
         this.productId = props.productId
         this.variantId = props.variantId

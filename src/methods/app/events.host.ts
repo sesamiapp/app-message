@@ -6,7 +6,7 @@ export const onHeightChange = (callback: (height: number) => void) => {
     ))
 }
 
-export const askNext = (source: MessageEventSource) => {
+export const askNext = (source: MessageEventSource): Promise<boolean> => {
     const data: Message = {
         action: Action.NEXT
     }

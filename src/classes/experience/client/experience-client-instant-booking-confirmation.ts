@@ -19,6 +19,7 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
         initListener()
         const payload: any = await getInit()
         return new ExperienceClientInstantBookingConfirmation({
+            sessionId: payload.sessionId,
             shopId: payload.shopId,
             productId: payload.productId,
             variantId: payload.variantId,

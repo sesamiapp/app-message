@@ -3,6 +3,6 @@ import { askNext } from '../../../methods/app'
 
 export class ExperienceHostInstantBookingForm extends ExperienceHostBase{
 
-    askConfirm = () => this.source && askNext(this.source)
+    askForConfirm = () => this.source && askNext(this.source)
 
 }
