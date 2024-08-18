@@ -8,13 +8,14 @@ export const onInit = (id: string, callback: (source: MessageEventSource) => voi
 }
 
 export const sendAdminInit = (
+    id: string,
     source: MessageEventSource | null,
     shopId: string,
     locale: string,
     extra?: object
 ) => {
     const data: Message = {
-        action: Action.INIT,
+        action: getEvent(id, Action.INIT),
         payload: {
             shopId,
             locale,
@@ -25,6 +26,7 @@ export const sendAdminInit = (
 }
 
 export const sendExperienceInit = (
+    id: string,
     source: MessageEventSource | null,
     sessionId: string,
     shopId: string,
@@ -38,7 +40,7 @@ export const sendExperienceInit = (
     extra?: object
 ) => {
     const data: Message = {
-        action: Action.INIT,
+        action: getEvent(id, Action.INIT),
         payload: {
             sessionId,
             shopId,
