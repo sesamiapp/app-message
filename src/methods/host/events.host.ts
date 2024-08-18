@@ -7,25 +7,25 @@ export const onHeightChange = (id: string, callback: (height: number) => void) =
     ))
 }
 
-export const askNext = (source: MessageEventSource): Promise<boolean> => {
+export const askNext = (id: string, source: MessageEventSource): Promise<boolean> => {
     const data: Message = {
-        action: Action.NEXT
+        action: getEvent(id, Action.NEXT)
     }
     source.postMessage(data)
     return new Promise(resolve => {
-        window.addEventListener(Action.NEXT, (e: any) => {
+        window.addEventListener(getEvent(id, Action.NEXT), (e: any) => {
             resolve(e.detail.event.data.payload.isAccepted)
         })
     })
 }
 
-export const onNotification = (callback: (message: string, type: NotificationType) => void) => {
-    window.addEventListener(Action.NOTIFICATION, (e: any) => {
+export const onNotification = (id: string, callback: (message: string, type: NotificationType) => void) => {
+    window.addEventListener(getEvent(id, Action.NOTIFICATION), (e: any) => {
         const payload = e.detail.event.data.payload
         callback(payload.message, payload.type)
     })
 }
 
-export const onBack = (callback: () => void) => {
-    window.addEventListener(Action.BACK, () => callback())
+export const onBack = (id: string, callback: () => void) => {
+    window.addEventListener(getEvent(id, Action.BACK), () => callback())
 }
