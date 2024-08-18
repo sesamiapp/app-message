@@ -1,6 +1,6 @@
 import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
 import { NotificationType } from '../../../types/notification.type'
-import { onNotification } from '../../../methods/app'
+import { onNotification } from '../../../methods/host'
 
 export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
 
