@@ -1,5 +1,5 @@
 import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/host'
-import { initListener } from '../../../helpers'
+import { getUrlParam, initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
 export type ExperienceHostBaseProps = {
@@ -33,6 +33,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
+        this.id = getUrlParam('id') ?? ''
         this.sessionId = props.sessionId
         this.shopId = props.shopId
         this.productId = props.productId
@@ -42,8 +43,6 @@ export class ExperienceHostBase {
         this.locale = props.locale
         this.timezone = props.timezone
         this.slot = props.slot
-
-        this.id = '' //todo: get it from the url
 
         initListener()
 
