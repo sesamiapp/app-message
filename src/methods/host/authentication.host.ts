@@ -5,9 +5,9 @@ export const onGetToken = (id: string, callback: () => void) => {
     window.addEventListener(getEvent(id, Action.TOKEN), () => callback())
 }
 
-export const sendToken = (source: MessageEventSource, token: string | null) => {
+export const sendToken = (id: string, source: MessageEventSource, token: string | null) => {
     const data: Message = {
-        action: Action.TOKEN,
+        action: getEvent(id, Action.TOKEN),
         payload: {
             token
         }
