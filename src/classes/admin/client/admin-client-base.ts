@@ -1,4 +1,4 @@
-import { getToken, initPageSizeListener } from '../../../methods/sesami'
+import { getToken, initPageSizeListener } from '../../../methods/client'
 import { isTokenExpired } from '../../../helpers'
 
 export type AdminClientBaseProps = {
