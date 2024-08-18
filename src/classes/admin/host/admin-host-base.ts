@@ -1,5 +1,6 @@
-import { onGetToken, onHeightChange, onInit, sendAdminInit, sendToken } from '../../../methods/app'
+import { onGetToken, onHeightChange, onInit, sendAdminInit, sendToken } from '../../../methods/host'
 import { initListener } from '../../../helpers'
+import { nanoId } from '../../../helpers/nano-id'
 
 export type AdminHostBaseProps = {
     shopId: string
@@ -11,7 +12,8 @@ export type AdminHostBaseProps = {
 
 export class AdminHostBase {
 
-    protected source: MessageEventSource | null = null
+    private id: string
+    private source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
     protected extra?: object
@@ -22,9 +24,12 @@ export class AdminHostBase {
         this.locale = props.locale
         this.extra = props.extra
 
+        // this.id = nanoId(`${this.shopId}${(new Date()).getTime()}${this.locale}`, 8)
+        this.id = '' //todo: get it from the url
+
         initListener()
 
-        onInit((source: MessageEventSource) => {
+        onInit(this.id, (source: MessageEventSource) => {
             this.source = source
             sendAdminInit(
                 this.source,
@@ -34,12 +39,12 @@ export class AdminHostBase {
             )
         })
 
-        onGetToken(async () => {
+        onGetToken(this.id, async () => {
             const token = await props.getToken()
             this.source && sendToken(this.source, token)
         })
 
-        props.setHeight && onHeightChange(props.setHeight)
+        props.setHeight && onHeightChange(this.id, props.setHeight)
 
     }
 
