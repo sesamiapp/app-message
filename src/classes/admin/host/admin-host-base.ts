@@ -12,8 +12,8 @@ export type AdminHostBaseProps = {
 
 export class AdminHostBase {
 
-    private id: string
-    private source: MessageEventSource | null = null
+    protected id: string
+    protected source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
     protected extra?: object
@@ -30,6 +30,7 @@ export class AdminHostBase {
         onInit(this.id, (source: MessageEventSource) => {
             this.source = source
             sendAdminInit(
+                this.id,
                 this.source,
                 this.shopId,
                 this.locale,
@@ -39,7 +40,7 @@ export class AdminHostBase {
 
         onGetToken(this.id, async () => {
             const token = await props.getToken()
-            this.source && sendToken(this.source, token)
+            this.source && sendToken(this.id, this.source, token)
         })
 
         props.setHeight && onHeightChange(this.id, props.setHeight)
