@@ -1,12 +1,13 @@
+import { getEvent } from '../../helpers'
 import { Action, Message } from '../../types'
 
-export const getInit = () => {
+export const getInit = (id: string) => {
     const data: Message = {
-        action: Action.INIT
+        action: getEvent(id, Action.INIT)
     }
     window.top?.postMessage(data)
     return new Promise(resolve => {
-        window.addEventListener(Action.INIT, (e: any) => {
+        window.addEventListener(getEvent(id, Action.INIT), (e: any) => {
             resolve(e.detail.event.data.payload)
         })
     })
