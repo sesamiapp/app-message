@@ -1,6 +1,6 @@
 import { ExperienceClientBase, ExperienceClientBaseProps } from './experience-client-base'
 import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
-import { initListener } from '../../../helpers'
+import { getUrlParam, initListener } from '../../../helpers'
 
 export class ExperienceClientInstantBookingConfirmation extends ExperienceClientBase {
 
@@ -17,8 +17,10 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
 
     static init = async () => {
         initListener()
-        const payload: any = await getInit()
+        const id = getUrlParam('id') ?? ''
+        const payload: any = await getInit(id)
         return new ExperienceClientInstantBookingConfirmation({
+            id,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
             productId: payload.productId,
