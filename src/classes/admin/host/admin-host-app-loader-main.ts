@@ -1,5 +1,5 @@
 import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
-import { onBack, onNotification } from '../../../methods/app'
+import { onBack, onNotification } from '../../../methods/host'
 import { NotificationType } from '../../../types/notification.type'
 
 export class AdminHostAppLoaderMain extends AdminHostBase {
@@ -11,8 +11,8 @@ export class AdminHostAppLoaderMain extends AdminHostBase {
         }
     ){
         super(props)
-        onNotification(props.onNotification)
-        props.onBack && onBack(props.onBack)
+        onNotification(this.id, props.onNotification)
+        props.onBack && onBack(this.id, props.onBack)
     }
 
 }

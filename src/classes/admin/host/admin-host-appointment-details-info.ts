@@ -1,6 +1,6 @@
 import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
 import { NotificationType } from '../../../types/notification.type'
-import { onNotification } from '../../../methods/app'
+import { onNotification } from '../../../methods/host'
 
 export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
 
@@ -8,7 +8,7 @@ export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
         onNotification: (message: string, type: NotificationType) => void
     }){
         super(props)
-        onNotification(props.onNotification)
+        onNotification(this.id, props.onNotification)
     }
 
 }

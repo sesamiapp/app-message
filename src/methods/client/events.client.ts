@@ -1,10 +1,11 @@
+import { getEvent } from '../../helpers'
 import { Action, Message } from '../../types'
 import { NotificationType } from '../../types'
 
-export const initPageSizeListener = () => {
+export const initPageSizeListener = (id: string) => {
     const resizeObserver = new ResizeObserver(entries => {
         const data: Message = {
-            action: Action.HEIGHT_CHANGE,
+            action: getEvent(id, Action.HEIGHT),
             payload: {
                 height: entries[0].target.clientHeight
             }
@@ -18,9 +19,9 @@ export const onNext = (callback: () => void) => {
     window.addEventListener(Action.NEXT, () => callback())
 }
 
-export const acceptNext = () => {
+export const acceptNext = (id: string) => {
     const data: Message = {
-        action: Action.NEXT,
+        action: getEvent(id, Action.NEXT),
         payload: {
             isAccepted: true
         }
@@ -28,9 +29,9 @@ export const acceptNext = () => {
     window.top?.postMessage(data)
 }
 
-export const rejectNext = () => {
+export const rejectNext = (id: string) => {
     const data: Message = {
-        action: Action.NEXT,
+        action: getEvent(id, Action.NEXT),
         payload: {
             isAccepted: false
         }
@@ -38,17 +39,17 @@ export const rejectNext = () => {
     window.top?.postMessage(data)
 }
 
-export const navBack = () => {
+export const navBack = (id: string) => {
     const data: Message = {
-        action: Action.BACK,
+        action: getEvent(id, Action.BACK),
         payload: null
     }
     window.top?.postMessage(data)
 }
 
-export const showNotification = (message: string, type: NotificationType) => {
+export const showNotification = (id: string, message: string, type: NotificationType) => {
     const data: Message = {
-        action: Action.NOTIFICATION,
+        action: getEvent(id, Action.NOTIFICATION),
         payload: {
             message,
             type

@@ -1,5 +1,5 @@
-import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/app'
-import { initListener } from '../../../helpers'
+import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/host'
+import { getUrlParam, initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
 export type ExperienceHostBaseProps = {
@@ -18,6 +18,7 @@ export type ExperienceHostBaseProps = {
 
 export class ExperienceHostBase {
 
+    protected id: string
     protected source: MessageEventSource | null = null
     protected sessionId: string
     protected shopId: string
@@ -32,6 +33,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
+        this.id = getUrlParam('id') ?? ''
         this.sessionId = props.sessionId
         this.shopId = props.shopId
         this.productId = props.productId
@@ -44,9 +46,10 @@ export class ExperienceHostBase {
 
         initListener()
 
-        onInit((source: MessageEventSource) => {
+        onInit(this.id, (source: MessageEventSource) => {
             this.source = source
             sendExperienceInit(
+                this.id,
                 this.source,
                 this.sessionId,
                 this.shopId,
@@ -61,7 +64,7 @@ export class ExperienceHostBase {
             )
         })
 
-        props.setHeight && onHeightChange(props.setHeight)
+        props.setHeight && onHeightChange(this.id, props.setHeight)
 
     }
 
