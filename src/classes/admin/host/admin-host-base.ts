@@ -1,5 +1,5 @@
 import { onGetToken, onHeightChange, onInit, sendAdminInit, sendToken } from '../../../methods/host'
-import { initListener } from '../../../helpers'
+import { getUrlParam, initListener } from '../../../helpers'
 import { nanoId } from '../../../helpers/nano-id'
 
 export type AdminHostBaseProps = {
@@ -20,12 +20,10 @@ export class AdminHostBase {
 
     constructor(props: AdminHostBaseProps){
         
+        this.id = getUrlParam('id') ?? ''
         this.shopId = props.shopId
         this.locale = props.locale
         this.extra = props.extra
-
-        // this.id = nanoId(`${this.shopId}${(new Date()).getTime()}${this.locale}`, 8)
-        this.id = '' //todo: get it from the url
 
         initListener()
 
