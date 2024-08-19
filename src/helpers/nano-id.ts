@@ -1,4 +1,8 @@
-export const nanoId = (characters: string, length: number) => {
+export const nanoId = (params: (string | number)[], length: number) => {
+    const date = new Date()
+    let characters = (date).toString()
+    params.map(param => { characters += `${param}${date.getTime()}` })
+    characters = characters.replaceAll(' ', '')
     const charactersLength = characters.length
     let result = '', counter = 0
     while(counter < length){
