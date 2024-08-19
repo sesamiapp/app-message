@@ -1,5 +1,5 @@
 import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
-import { NotificationType } from '../../../types/notification.type'
+import { AppTarget, NotificationType } from '../../../types'
 import { onNotification } from '../../../methods/host'
 
 export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
@@ -10,5 +10,16 @@ export class AdminHostAppointmentDetailsInfo extends AdminHostBase {
         super(props)
         onNotification(this.id, props.onNotification)
     }
+
+    getURL = () => (
+        `${this.url}` +
+        `?target=${AppTarget.ADMIN_APPOINTMENT_DETAILS_INFO}` +
+        `&id=${this.id}` +
+        `&time=${this.timestamp}` +
+        `&token=${this.token}` +
+        `&shopId=${this.shopId}` +
+        `&locale=${this.locale}` +
+        `&appointmentId=${this.extra?.appointment}`
+    )
 
 }
