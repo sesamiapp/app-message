@@ -1,6 +1,5 @@
 import { getEvent } from '../../helpers'
-import { Action, Message } from '../../types'
-import { NotificationType } from '../../types'
+import { Action, Message, NotificationType } from '../../types'
 
 export const initPageSizeListener = (id: string) => {
     const resizeObserver = new ResizeObserver(entries => {
