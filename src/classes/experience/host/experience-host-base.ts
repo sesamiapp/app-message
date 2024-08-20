@@ -3,6 +3,7 @@ import { getUrlParam, initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
 export type ExperienceHostBaseProps = {
+    url: string
     sessionId: string
     shopId: string
     productId: string
@@ -18,6 +19,7 @@ export type ExperienceHostBaseProps = {
 
 export class ExperienceHostBase {
 
+    protected url: string
     protected id: string
     protected source: MessageEventSource | null = null
     protected sessionId: string
@@ -34,6 +36,7 @@ export class ExperienceHostBase {
     constructor(props: ExperienceHostBaseProps){
 
         this.id = getUrlParam('id') ?? ''
+        this.url = props.url
         this.sessionId = props.sessionId
         this.shopId = props.shopId
         this.productId = props.productId
@@ -67,5 +70,19 @@ export class ExperienceHostBase {
         props.setHeight && onHeightChange(this.id, props.setHeight)
 
     }
+
+    protected getBaseURL = () => (
+        `${this.url}` +
+        `?id=${this.id}` +
+        `&sessionId=${this.sessionId}` +
+        `&shopId=${this.shopId}` +
+        `&productId=${this.productId}` +
+        `&variantId=${this.variantId}` +
+        `&quantity=${this.quantity}` +
+        `&resources=${JSON.stringify(this.resources.map(r => r.id))}` +
+        `&locale=${this.locale}` +
+        `&timezone=${this.timezone}` +
+        `&slot=${this.slot.getTime()}`
+    )
 
 }
