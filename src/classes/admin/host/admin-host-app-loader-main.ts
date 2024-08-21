@@ -1,6 +1,6 @@
 import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
 import { onBack, onNotification } from '../../../methods/host'
-import { AppTarget, NotificationType } from '../../../types'
+import { NotificationType } from '../../../types'
 
 export class AdminHostAppLoaderMain extends AdminHostBase {
 
@@ -14,10 +14,5 @@ export class AdminHostAppLoaderMain extends AdminHostBase {
         onNotification(this.id, props.onNotification)
         props.onBack && onBack(this.id, props.onBack)
     }
-
-    getURL = () => (
-        this.getBaseURL() +
-        `&target=${AppTarget.ADMIN_APP_LOADER_MAIN}`
-    )
 
 }
