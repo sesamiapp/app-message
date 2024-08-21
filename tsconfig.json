@@ -1,15 +1,9 @@
 {
-    "exclude": ["node_modules", "build"],
     "compilerOptions": {
-        "lib": ["ESNext", "DOM"],
         "module": "commonjs",
-        "target": "ESNext",
-        "moduleDetection": "force",
-        "moduleResolution": "Node",
-        "outDir": "build",
+        "lib": ["es5", "es6", "dom"],
         "rootDir": "",
-        "declaration": true,
-        "skipLibCheck": true,
-        "strict": true
+        "outDir": "build",
+        "declaration": true
     }
 }
