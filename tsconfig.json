@@ -3,7 +3,25 @@
         "module": "commonjs",
         "lib": ["es5", "es6", "dom"],
         "rootDir": "",
-        "outDir": "build",
-        "declaration": true
+        "declaration": false,
+        // "outDir": "build",
     }
 }
+
+// {
+//     "compilerOptions": {
+//       "declaration": true,                // Generate .d.ts files
+//       "emitDeclarationOnly": true,        // Only emit the .d.ts files, not the compiled .js files
+//       "outDir": "build",                // Output directory for the .d.ts files
+//       "rootDir": "",                 // Root directory of your source files
+//       "strict": true,                     // Enable strict type checking
+//       "esModuleInterop": true,            // Enable interop between CommonJS and ES Modules
+//       "skipLibCheck": true,               // Skip type checking of declaration files in libraries
+//       "moduleResolution": "node",         // Node.js style resolution
+//       "target": "ESNext",                 // Target version of JavaScript
+//       "module": "ESNext",                 // Module system to use
+//       "allowJs": false                    // Disable JavaScript files (TypeScript only)
+//     },
+//     "include": ["src/**/*.ts"],           // Include all TypeScript files in the src directory
+//     "exclude": ["node_modules", "dist"]   // Exclude node_modules and dist directories
+// }
