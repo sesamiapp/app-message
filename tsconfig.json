@@ -2,12 +2,13 @@
     "exclude": ["node_modules", "build"],
     "compilerOptions": {
         "lib": ["ESNext", "DOM"],
-        "module": "ESNext",
+        "module": "System",
         "target": "ESNext",
         "moduleDetection": "force",
         "moduleResolution": "Node",
-        "outDir": "build",
+        "outFile": "./build/index.js",
         "declaration": true,
         "skipLibCheck": true,
+        "strict": true
     }
 }
