@@ -1,6 +1,6 @@
 {
   "name": "@sesamiapp/app-message",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "A library to connect Sesami Apps to their host.",
   "homepage": "https://github.com/sesamiapp/app-message#readme",
   "repository": {
@@ -14,14 +14,16 @@
   "license": "ISC",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "type": "module",
   "scripts": {
-    "build": "npx tsc"
+    "build": "webpack"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/sesamiapp"
   },
   "devDependencies": {
-    "typescript": "^5.5.4"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   }
 }
