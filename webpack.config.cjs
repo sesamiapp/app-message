@@ -1,75 +1,24 @@
-const path = require("path")
+const path = require('path');
 
-const commonConfig = {
-  stats: {
-    errorDetails: true
-  },
+module.exports = {
   mode: "development",
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: {
-          loader: "ts-loader"
-        }
-      }
-    ]
+  devtool: "inline-source-map",
+  entry: {
+    main: "./src/index.ts",
+  },
+  output: {
+    path: path.resolve(__dirname, './build'),
+    filename: 'index.js',
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-    extensionAlias: {
-      ".js": [".ts", ".js"],
-      ".jsx": [".tsx", ".jsx"],
-      ".mjs": [".mts", ".mjs"]
-    }
-  }
-}
-
-const browserConfig = {
-  ...commonConfig,
-  experiments: {
-    outputModule: true
+    extensions: [".ts", ".js"],
   },
-  entry: { browser: "./src/index.ts" },
   module: {
     rules: [
-      {
+      { 
         test: /\.tsx?$/,
-        use: {
-          loader: "ts-loader"
-        }
+        loader: "ts-loader"
       }
     ]
-  },
-  output: {
-    filename: "browser.js",
-    path: path.resolve(__dirname) + "/lib",
-    library: {
-      type: "module"
-    },
-    globalObject: "this"
   }
-}
-
-const nodeConfig = {
-  ...commonConfig,
-  experiments: {
-    outputModule: true
-  },
-  entry: {
-    node: "./src/index.ts"
-  },
-  target: "node",
-  output: {
-    filename: "index.js",
-    path: path.resolve(__dirname) + "/build",
-    chunkLoading: "import",
-    chunkFormat: "module",
-    library: {
-      type: "module"
-    },
-    globalObject: "this"
-  }
-}
-// module.exports = [browserConfig, nodeConfig]
-module.exports = [nodeConfig]
+};
