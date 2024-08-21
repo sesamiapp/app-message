@@ -9,6 +9,6 @@
         "outDir": "build",
         "declaration": true,
         "skipLibCheck": true,
-        "strict": true
+        "strict": true,
     }
 }
