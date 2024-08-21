@@ -9,7 +9,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: 'index.js'
+    filename: 'index.js',
+    library: 'test',
+    libraryTarget: 'window',
+    libraryExport: 'default'
   },
   resolve: {
     extensions: [".ts", ".js"],
