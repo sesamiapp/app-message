@@ -5,14 +5,11 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    main: "./index.ts",
+    main: "./src/index.ts",
   },
   output: {
     path: path.resolve(__dirname, './build'),
     filename: 'index.js',
-    library: 'test',
-    libraryTarget: 'window',
-    libraryExport: 'default'
   },
   resolve: {
     extensions: [".ts", ".js"],
