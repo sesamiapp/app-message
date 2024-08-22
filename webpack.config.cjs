@@ -16,11 +16,9 @@ const nodeConfig = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
     extensionAlias: {
       '.js' : ['.ts' , '.js' ],
-      '.jsx': ['.tsx', '.jsx'],
-      '.mjs': ['.mts', '.mjs']
     }
   },
   experiments: {
