@@ -1,7 +1,7 @@
 import { AdminClientBase, AdminClientBaseProps } from './admin-client-base'
 import { getInit, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
-import { Appointment } from '../../../types'
+import { Appointment, NotificationType } from '../../../types'
 
 export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
 
@@ -28,6 +28,6 @@ export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
         })
     }
 
-    showNotification = showNotification
+    showNotification = (message: string, type: NotificationType) => showNotification(this.id, message, type)
 
 }
