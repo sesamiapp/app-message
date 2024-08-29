@@ -16,7 +16,7 @@ export type ExperienceClientBaseProps = {
 
 export class ExperienceClientBase {
 
-    private id: string
+    protected id: string
     private sessionId: string
     private shopId: string
     private productId: string
@@ -48,7 +48,7 @@ export class ExperienceClientBase {
         this.locale    = props.locale
         this.timezone  = props.timezone
         this.slot      = props.slot
-        initPageSizeListener(props.id)
+        initPageSizeListener(this.id)
     }
 
 }
