@@ -34,8 +34,8 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
         })
     }
     
-    onFinish = onNext
-    acceptFinish = acceptNext
-    rejectFinish = rejectNext
+    onDone = onNext
+    acceptDone = () => acceptNext(this.id)
+    rejectDone = () => rejectNext(this.id)
 
 }
