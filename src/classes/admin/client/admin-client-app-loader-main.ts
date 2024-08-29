@@ -1,6 +1,7 @@
 import { AdminClientBase } from './admin-client-base'
 import { getInit, navBack, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
+import { NotificationType } from '../../../types'
 
 export class AdminClientAppLoaderMain extends AdminClientBase{
     
@@ -15,7 +16,7 @@ export class AdminClientAppLoaderMain extends AdminClientBase{
         })
     }
 
-    showNotification = showNotification
-    navBack = navBack
+    showNotification = (message: string, type: NotificationType) => showNotification(this.id, message, type)
+    navBack = () => navBack(this.id)
 
 }

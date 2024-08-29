@@ -23,7 +23,7 @@ export class ExperienceClientInstantBookingForm extends ExperienceClientBase{
     }
     
     onConfirm = onNext
-    acceptConfirm = acceptNext
-    rejectConfirm = rejectNext
+    acceptConfirm = () => acceptNext(this.id)
+    rejectConfirm = () => rejectNext(this.id)
 
 }
