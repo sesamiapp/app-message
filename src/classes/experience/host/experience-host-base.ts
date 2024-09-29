@@ -35,7 +35,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
-        this.id = getUrlParam('id') ?? ''
+        this.id = getUrlParam('id', props.url) ?? ''
         this.url = props.url
         this.sessionId = props.sessionId
         this.shopId = props.shopId
@@ -73,7 +73,6 @@ export class ExperienceHostBase {
 
     protected getBaseURL = () => (
         `${this.url}` +
-        `?id=${this.id}` +
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}` +
         `&productId=${this.productId}` +
