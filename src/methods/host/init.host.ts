@@ -22,7 +22,7 @@ export const sendAdminInit = (
             extra
         }
     }
-    source?.postMessage(data)
+    source?.postMessage(data, '*')
 }
 
 export const sendExperienceInit = (
@@ -54,5 +54,5 @@ export const sendExperienceInit = (
             extra
         }
     }
-    source?.postMessage(data)
+    source?.postMessage(data, '*')
 }
