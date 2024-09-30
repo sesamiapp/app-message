@@ -9,7 +9,7 @@ export const initPageSizeListener = (id: string) => {
                 height: entries[0].target.clientHeight
             }
         }
-        window.top?.postMessage(data)
+        window.top?.postMessage(data, '*')
     })
     resizeObserver.observe(document.body)
 }
@@ -25,7 +25,7 @@ export const acceptNext = (id: string) => {
             isAccepted: true
         }
     }
-    window.top?.postMessage(data)
+    window.top?.postMessage(data, '*')
 }
 
 export const rejectNext = (id: string) => {
@@ -35,7 +35,7 @@ export const rejectNext = (id: string) => {
             isAccepted: false
         }
     }
-    window.top?.postMessage(data)
+    window.top?.postMessage(data, '*')
 }
 
 export const navBack = (id: string) => {
@@ -43,7 +43,7 @@ export const navBack = (id: string) => {
         action: getEvent(id, Action.BACK),
         payload: null
     }
-    window.top?.postMessage(data)
+    window.top?.postMessage(data, '*')
 }
 
 export const showNotification = (id: string, message: string, type: NotificationType) => {
@@ -54,5 +54,5 @@ export const showNotification = (id: string, message: string, type: Notification
             type
         }
     }
-    window.top?.postMessage(data)
+    window.top?.postMessage(data, '*')
 }
