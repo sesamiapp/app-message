@@ -12,5 +12,5 @@ export const sendToken = (id: string, source: MessageEventSource, token: string 
             token
         }
     }
-    source.postMessage(data, '*')
+    source.postMessage(data, { targetOrigin: '*' })
 }
