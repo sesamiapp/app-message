@@ -14,8 +14,8 @@ export const initPageSizeListener = (id: string) => {
     resizeObserver.observe(document.body)
 }
 
-export const onNext = (callback: () => void) => {
-    window.addEventListener(Action.NEXT, () => callback())
+export const onNext = (id: string, callback: () => void) => {
+    window.addEventListener(getEvent(id, Action.NEXT), () => callback())
 }
 
 export const acceptNext = (id: string) => {
