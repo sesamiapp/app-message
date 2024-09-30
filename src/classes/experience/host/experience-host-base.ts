@@ -46,6 +46,7 @@ export class ExperienceHostBase {
         this.locale = props.locale
         this.timezone = props.timezone
         this.slot = props.slot
+        this.extra = props.extra
 
         initListener()
 
