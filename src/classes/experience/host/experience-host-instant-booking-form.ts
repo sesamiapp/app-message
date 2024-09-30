@@ -2,7 +2,7 @@ import { ExperienceHostBase } from './experience-host-base'
 import { askNext } from '../../../methods/host'
 import { AppTarget } from '../../../types'
 
-export class ExperienceHostInstantBookingForm extends ExperienceHostBase{
+export class ExperienceHostInstantBookingForm extends ExperienceHostBase {
 
     askForConfirm = () => this.source && askNext(this.id, this.source)
 
