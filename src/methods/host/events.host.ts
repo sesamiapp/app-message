@@ -11,7 +11,7 @@ export const askNext = (id: string, source: MessageEventSource): Promise<boolean
     const data: Message = {
         action: getEvent(id, Action.NEXT)
     }
-    source.postMessage(data)
+    source.postMessage(data, { targetOrigin: '*' })
     return new Promise(resolve => {
         window.addEventListener(getEvent(id, Action.NEXT), (e: any) => {
             resolve(e.detail.event.data.payload.isAccepted)
