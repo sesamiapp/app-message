@@ -35,7 +35,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
-        this.id = getUrlParam('id', props.url) ?? ''
+        this.id = getUrlParam('id', getSearchFromURL(props.url)) ?? ''
         this.url = props.url
         this.sessionId = props.sessionId
         this.shopId = props.shopId
@@ -84,4 +84,13 @@ export class ExperienceHostBase {
         `&slot=${this.slot.getTime()}`
     )
 
+}
+
+const getSearchFromURL = (url: string) => {
+    const windowSearch = url.split('?')
+    if(windowSearch.length === 2){
+        return windowSearch[1]
+    }else{
+        return null
+    }
 }
