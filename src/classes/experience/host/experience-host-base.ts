@@ -20,7 +20,7 @@ export type ExperienceHostBaseProps = {
 export class ExperienceHostBase {
 
     protected url: string
-    protected id: string
+    protected messageId: string
     protected source: MessageEventSource | null = null
     protected sessionId: string
     protected shopId: string
@@ -35,7 +35,7 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
-        this.id = getUrlParam('id', getSearchFromURL(props.url)) ?? ''
+        this.messageId = getUrlParam('messageId', getSearchFromURL(props.url)) ?? ''
         this.url = props.url
         this.sessionId = props.sessionId
         this.shopId = props.shopId
@@ -50,10 +50,10 @@ export class ExperienceHostBase {
 
         initListener()
 
-        onInit(this.id, (source: MessageEventSource) => {
+        onInit(this.messageId, (source: MessageEventSource) => {
             this.source = source
             sendExperienceInit(
-                this.id,
+                this.messageId,
                 this.source,
                 this.sessionId,
                 this.shopId,
@@ -68,7 +68,7 @@ export class ExperienceHostBase {
             )
         })
 
-        props.setHeight && onHeightChange(this.id, props.setHeight)
+        props.setHeight && onHeightChange(this.messageId, props.setHeight)
 
     }
 

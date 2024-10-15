@@ -6,10 +6,10 @@ export class ExperienceClientInstantBookingForm extends ExperienceClientBase{
 
     static init = async () => {
         initListener()
-        const id = getUrlParam('id') ?? ''
-        const payload: any = await getInit(id)
+        const messageId = getUrlParam('messageId') ?? ''
+        const payload: any = await getInit(messageId)
         return new ExperienceClientInstantBookingForm({
-            id,
+            messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
             productId: payload.productId,
@@ -22,8 +22,8 @@ export class ExperienceClientInstantBookingForm extends ExperienceClientBase{
         })
     }
     
-    onConfirm = (callback: () => void) => onNext(this.id, callback)
-    acceptConfirm = () => acceptNext(this.id)
-    rejectConfirm = () => rejectNext(this.id)
+    onConfirm = (callback: () => void) => onNext(this.messageId, callback)
+    acceptConfirm = () => acceptNext(this.messageId)
+    rejectConfirm = () => rejectNext(this.messageId)
 
 }

@@ -13,7 +13,7 @@ export type AdminHostBaseProps = {
 
 export class AdminHostBase {
     
-    protected id: string
+    protected messageId: string
     protected timestamp: number
     protected source: MessageEventSource | null = null
     protected shopId: string
@@ -23,17 +23,17 @@ export class AdminHostBase {
     constructor(props: AdminHostBaseProps){
 
         this.timestamp = props.timestamp,
-        this.id        = props.messageId
+        this.messageId = props.messageId
         this.shopId    = props.shopId
         this.locale    = props.locale
         this.extra     = props.extra
 
         initListener()
 
-        onInit(this.id, (source: MessageEventSource) => {
+        onInit(this.messageId, (source: MessageEventSource) => {
             this.source = source
             sendAdminInit(
-                this.id,
+                this.messageId,
                 this.source,
                 this.shopId,
                 this.locale,
@@ -41,12 +41,12 @@ export class AdminHostBase {
             )
         })
 
-        onGetToken(this.id, async () => {
+        onGetToken(this.messageId, async () => {
             const token = await props.getToken()
-            this.source && sendToken(this.id, this.source, token)
+            this.source && sendToken(this.messageId, this.source, token)
         })
 
-        props.setHeight && onHeightChange(this.id, props.setHeight)
+        props.setHeight && onHeightChange(this.messageId, props.setHeight)
 
     }
 
