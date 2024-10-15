@@ -11,8 +11,8 @@ export class AdminHostAppLoaderMain extends AdminHostBase {
         }
     ){
         super(props)
-        onNotification(this.id, props.onNotification)
-        props.onBack && onBack(this.id, props.onBack)
+        onNotification(this.messageId, props.onNotification)
+        props.onBack && onBack(this.messageId, props.onBack)
     }
 
 }

@@ -4,7 +4,7 @@ import { AppTarget } from '../../../types'
 
 export class ExperienceHostInstantBookingConfirmation extends ExperienceHostBase {
 
-    askForDone = () => this.source && askNext(this.id, this.source)
+    askForDone = () => this.source && askNext(this.messageId, this.source)
 
     getURL = () => (
         this.getBaseURL() +

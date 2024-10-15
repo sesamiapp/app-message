@@ -1,21 +1,21 @@
 import { getEvent } from '../../helpers'
 import { Action, Message, Resource } from '../../types'
 
-export const onInit = (id: string, callback: (source: MessageEventSource) => void) => {
-    window.addEventListener(getEvent(id, Action.INIT), (e: any) => {
+export const onInit = (messageId: string, callback: (source: MessageEventSource) => void) => {
+    window.addEventListener(getEvent(messageId, Action.INIT), (e: any) => {
         callback(e.detail.event.source)
     })
 }
 
 export const sendAdminInit = (
-    id: string,
+    messageId: string,
     source: MessageEventSource | null,
     shopId: string,
     locale: string,
     extra?: object
 ) => {
     const data: Message = {
-        action: getEvent(id, Action.INIT),
+        action: getEvent(messageId, Action.INIT),
         payload: {
             shopId,
             locale,
@@ -26,7 +26,7 @@ export const sendAdminInit = (
 }
 
 export const sendExperienceInit = (
-    id: string,
+    messageId: string,
     source: MessageEventSource | null,
     sessionId: string,
     shopId: string,
@@ -40,7 +40,7 @@ export const sendExperienceInit = (
     extra?: object
 ) => {
     const data: Message = {
-        action: getEvent(id, Action.INIT),
+        action: getEvent(messageId, Action.INIT),
         payload: {
             sessionId,
             shopId,

@@ -17,10 +17,10 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
 
     static init = async () => {
         initListener()
-        const id = getUrlParam('id') ?? ''
-        const payload: any = await getInit(id)
+        const messageId = getUrlParam('messageId') ?? ''
+        const payload: any = await getInit(messageId)
         return new ExperienceClientInstantBookingConfirmation({
-            id,
+            messageId: messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
             productId: payload.productId,
@@ -34,8 +34,8 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
         })
     }
     
-    onDone = (callback: () => void) => onNext(this.id, callback)
-    acceptDone = () => acceptNext(this.id)
-    rejectDone = () => rejectNext(this.id)
+    onDone = (callback: () => void) => onNext(this.messageId, callback)
+    acceptDone = () => acceptNext(this.messageId)
+    rejectDone = () => rejectNext(this.messageId)
 
 }

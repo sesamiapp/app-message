@@ -1,10 +1,10 @@
 import { getEvent } from '../../helpers'
 import { Action, Message, NotificationType } from '../../types'
 
-export const initPageSizeListener = (id: string) => {
+export const initPageSizeListener = (messageId: string) => {
     const resizeObserver = new ResizeObserver(entries => {
         const data: Message = {
-            action: getEvent(id, Action.HEIGHT),
+            action: getEvent(messageId, Action.HEIGHT),
             payload: {
                 height: entries[0].target.clientHeight
             }
@@ -14,13 +14,13 @@ export const initPageSizeListener = (id: string) => {
     resizeObserver.observe(document.body)
 }
 
-export const onNext = (id: string, callback: () => void) => {
-    window.addEventListener(getEvent(id, Action.NEXT), () => callback())
+export const onNext = (messageId: string, callback: () => void) => {
+    window.addEventListener(getEvent(messageId, Action.NEXT), () => callback())
 }
 
-export const acceptNext = (id: string) => {
+export const acceptNext = (messageId: string) => {
     const data: Message = {
-        action: getEvent(id, Action.NEXT),
+        action: getEvent(messageId, Action.NEXT),
         payload: {
             isAccepted: true
         }
@@ -28,9 +28,9 @@ export const acceptNext = (id: string) => {
     window.top?.postMessage(data, '*')
 }
 
-export const rejectNext = (id: string) => {
+export const rejectNext = (messageId: string) => {
     const data: Message = {
-        action: getEvent(id, Action.NEXT),
+        action: getEvent(messageId, Action.NEXT),
         payload: {
             isAccepted: false
         }
@@ -38,17 +38,17 @@ export const rejectNext = (id: string) => {
     window.top?.postMessage(data, '*')
 }
 
-export const navBack = (id: string) => {
+export const navBack = (messageId: string) => {
     const data: Message = {
-        action: getEvent(id, Action.BACK),
+        action: getEvent(messageId, Action.BACK),
         payload: null
     }
     window.top?.postMessage(data, '*')
 }
 
-export const showNotification = (id: string, message: string, type: NotificationType) => {
+export const showNotification = (messageId: string, message: string, type: NotificationType) => {
     const data: Message = {
-        action: getEvent(id, Action.NOTIFICATION),
+        action: getEvent(messageId, Action.NOTIFICATION),
         payload: {
             message,
             type
