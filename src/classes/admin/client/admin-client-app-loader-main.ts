@@ -7,16 +7,16 @@ export class AdminClientAppLoaderMain extends AdminClientBase{
     
     static init = async () => {
         initListener()
-        const id = getUrlParam('id') ?? ''
-        const payload: any = await getInit(id)
+        const messageId = getUrlParam('messageId') ?? ''
+        const payload: any = await getInit(messageId)
         return new AdminClientAppLoaderMain({
-            id,
+            messageId,
             shopId: payload.shopId,
             locale: payload.locale
         })
     }
 
-    showNotification = (message: string, type: NotificationType) => showNotification(this.id, message, type)
-    navBack = () => navBack(this.id)
+    showNotification = (message: string, type: NotificationType) => showNotification(this.messageId, message, type)
+    navBack = () => navBack(this.messageId)
 
 }
