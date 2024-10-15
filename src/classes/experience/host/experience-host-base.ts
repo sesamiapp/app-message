@@ -79,7 +79,7 @@ export class ExperienceHostBase {
         `&productId=${this.productId}` +
         `&variantId=${this.variantId}` +
         `&quantity=${this.quantity}` +
-        `&resources=${JSON.stringify(this.resources.map(r => r.id))}` +
+        `&resources=${JSON.stringify(this.resources.map(resource => resource.id))}` +
         `&locale=${this.locale}` +
         `&timezone=${this.timezone}` +
         `&slot=${this.slot.getTime()}`
