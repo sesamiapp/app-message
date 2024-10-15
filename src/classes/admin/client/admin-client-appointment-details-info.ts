@@ -18,16 +18,16 @@ export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
     
     static init = async () => {
         initListener()
-        const id = getUrlParam('id') ?? ''
-        const payload: any = await getInit(id)
+        const messageId = getUrlParam('messageId') ?? ''
+        const payload: any = await getInit(messageId)
         return new AdminClientAppointmentDetailsInfo({
-            id,
+            messageId,
             shopId: payload.shopId,
             locale: payload.locale,
             appointment: payload.extra.appointment
         })
     }
 
-    showNotification = (message: string, type: NotificationType) => showNotification(this.id, message, type)
+    showNotification = (message: string, type: NotificationType) => showNotification(this.messageId, message, type)
 
 }
