@@ -1,9 +1,10 @@
 import { onHeight, onInit, sendExperienceInit } from '../../../methods/host'
-import { getUrlParam, initListener } from '../../../helpers'
+import { initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
 export type ExperienceHostBaseProps = {
     url: string
+    messageId: string
     sessionId: string
     shopId: string
     productId: string
@@ -35,8 +36,8 @@ export class ExperienceHostBase {
 
     constructor(props: ExperienceHostBaseProps){
 
-        this.messageId = getUrlParam('messageId', getSearchFromURL(props.url)) ?? ''
         this.url = props.url
+        this.messageId = props.messageId,
         this.sessionId = props.sessionId
         this.shopId = props.shopId
         this.productId = props.productId
@@ -74,6 +75,7 @@ export class ExperienceHostBase {
 
     protected getBaseURL = () => (
         `${this.url}` +
+        `&messageId=${this.messageId}` +
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}` +
         `&productId=${this.productId}` +
