@@ -1,4 +1,4 @@
-import { onGetToken, onHeightChange, onInit, sendAdminInit, sendToken } from '../../../methods/host'
+import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
 import { initListener } from '../../../helpers'
 
 export type AdminHostBaseProps = {
@@ -8,7 +8,7 @@ export type AdminHostBaseProps = {
     locale: string
     extra?: object
     getToken: () => Promise<string | null>
-    setHeight?: (height: number) => void
+    onHeightChange?: (height: number) => void
 }
 
 export class AdminHostBase {
@@ -46,7 +46,7 @@ export class AdminHostBase {
             this.source && sendToken(this.messageId, this.source, token)
         })
 
-        props.setHeight && onHeightChange(this.messageId, props.setHeight)
+        props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
 
     }
 

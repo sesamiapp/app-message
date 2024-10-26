@@ -1,4 +1,4 @@
-import { onHeightChange, onInit, sendExperienceInit } from '../../../methods/host'
+import { onHeight, onInit, sendExperienceInit } from '../../../methods/host'
 import { getUrlParam, initListener } from '../../../helpers'
 import { Resource } from '../../../types'
 
@@ -14,7 +14,7 @@ export type ExperienceHostBaseProps = {
     timezone: string
     slot: Date
     extra?: object
-    setHeight?: (height: number) => void
+    onHeightChange?: (height: number) => void
 }
 
 export class ExperienceHostBase {
@@ -68,7 +68,7 @@ export class ExperienceHostBase {
             )
         })
 
-        props.setHeight && onHeightChange(this.messageId, props.setHeight)
+        props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
 
     }
 
