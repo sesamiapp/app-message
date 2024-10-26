@@ -1,2 +1,2 @@
-export * from './admin-client-app-loader-main'
-export * from './admin-client-appointment-details-info'
+export * from './admin-app-loader'
+export * from './admin-appointment-details'

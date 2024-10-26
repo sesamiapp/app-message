@@ -2,13 +2,13 @@ import { ExperienceClientBase } from './experience-client-base'
 import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
 
-export class ExperienceClientInstantBookingForm extends ExperienceClientBase{
+export class ExperienceInstantBookingForm extends ExperienceClientBase{
 
     static init = async () => {
         initListener()
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new ExperienceClientInstantBookingForm({
+        return new ExperienceInstantBookingForm({
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,

@@ -3,7 +3,7 @@ import { getInit, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
 import { Appointment, NotificationType } from '../../../types'
 
-export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
+export class AdminAppointmentDetails extends AdminClientBase {
 
     private appointment: Appointment
 
@@ -20,7 +20,7 @@ export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
         initListener()
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new AdminClientAppointmentDetailsInfo({
+        return new AdminAppointmentDetails({
             messageId,
             shopId: payload.shopId,
             locale: payload.locale,

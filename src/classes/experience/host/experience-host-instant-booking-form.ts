@@ -6,9 +6,6 @@ export class ExperienceHostInstantBookingForm extends ExperienceHostBase {
 
     askForConfirm = () => this.source && askNext(this.messageId, this.source)
 
-    getURL = () => (
-        this.getBaseURL() +
-        `&target=${AppTarget.EXPERIENCE_INSTANT_BOOKING_FORM}`
-    )
+    getURL = () => `${this.getBaseURL()}&target=${AppTarget.EXPERIENCE_INSTANT_BOOKING_FORM}`
 
 }
