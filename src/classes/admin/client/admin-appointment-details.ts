@@ -22,7 +22,7 @@ export class AdminAppointmentDetails extends AdminClientBase {
             messageId,
             shopId: payload.shopId,
             locale: payload.locale,
-            appointmentId: payload.extra.appointmentId
+            appointmentId: payload.extra?.appointmentId
         })
     }
 
