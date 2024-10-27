@@ -1,6 +1,5 @@
 export * from './action.type'
 export * from './app-target.type'
-export * from './appointment.type'
 export * from './message.type'
 export * from './notification.type'
 export * from './resource.type'

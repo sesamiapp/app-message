@@ -1,20 +1,18 @@
-import { onGetToken, onHeightChange, onInit, sendAdminInit, sendToken } from '../../../methods/host'
+import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
 import { initListener } from '../../../helpers'
 
 export type AdminHostBaseProps = {
-    timestamp: number
     messageId: string
     shopId: string
     locale: string
     extra?: object
     getToken: () => Promise<string | null>
-    setHeight?: (height: number) => void
+    onHeightChange?: (height: number) => void
 }
 
 export class AdminHostBase {
     
     protected messageId: string
-    protected timestamp: number
     protected source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
@@ -22,7 +20,6 @@ export class AdminHostBase {
 
     constructor(props: AdminHostBaseProps){
 
-        this.timestamp = props.timestamp,
         this.messageId = props.messageId
         this.shopId    = props.shopId
         this.locale    = props.locale
@@ -46,7 +43,7 @@ export class AdminHostBase {
             this.source && sendToken(this.messageId, this.source, token)
         })
 
-        props.setHeight && onHeightChange(this.messageId, props.setHeight)
+        props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
 
     }
 
