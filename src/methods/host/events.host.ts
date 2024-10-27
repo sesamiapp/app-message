@@ -1,3 +1,4 @@
+import { Constants } from '../../constants'
 import { getEvent } from '../../helpers'
 import { Action, Message, NotificationType } from '../../types'
 
@@ -13,9 +14,25 @@ export const askNext = (messageId: string, source: MessageEventSource): Promise<
     }
     source.postMessage(data, { targetOrigin: '*' })
     return new Promise(resolve => {
+        
+        let isWaitingForAccept = true
+
+        // set timeout for client's response
+        setTimeout(() => {
+            if(isWaitingForAccept){
+                resolve(true)
+                isWaitingForAccept = false
+            }
+        }, Constants.CLIENT_ON_NEXT_TIMEOUT)
+
+        // waiting for clint's response
         window.addEventListener(getEvent(messageId, Action.NEXT), (e: any) => {
-            resolve(e.detail.event.data.payload.isAccepted)
+            if(isWaitingForAccept){
+                resolve(e.detail.event.data.payload.isAccepted)
+                isWaitingForAccept = false
+            }
         })
+        
     })
 }
 
