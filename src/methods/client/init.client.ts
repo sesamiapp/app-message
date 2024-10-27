@@ -12,3 +12,16 @@ export const getInit = (messageId: string) => {
         })
     })
 }
+
+export const initPageSizeListener = (messageId: string) => {
+    const resizeObserver = new ResizeObserver(entries => {
+        const data: Message = {
+            action: getEvent(messageId, Action.HEIGHT),
+            payload: {
+                height: entries[0].target.clientHeight
+            }
+        }
+        window.top?.postMessage(data, '*')
+    })
+    resizeObserver.observe(document.body)
+}

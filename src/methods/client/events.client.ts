@@ -1,19 +1,6 @@
 import { getEvent } from '../../helpers'
 import { Action, Message, NotificationType } from '../../types'
 
-export const initPageSizeListener = (messageId: string) => {
-    const resizeObserver = new ResizeObserver(entries => {
-        const data: Message = {
-            action: getEvent(messageId, Action.HEIGHT),
-            payload: {
-                height: entries[0].target.clientHeight
-            }
-        }
-        window.top?.postMessage(data, '*')
-    })
-    resizeObserver.observe(document.body)
-}
-
 export const onNext = (messageId: string, callback: () => void) => {
     window.addEventListener(getEvent(messageId, Action.NEXT), () => callback())
 }

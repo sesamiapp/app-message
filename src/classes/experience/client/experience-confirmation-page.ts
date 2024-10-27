@@ -2,7 +2,7 @@ import { ExperienceClientBase, ExperienceClientBaseProps } from './experience-cl
 import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
 
-export class ExperienceClientInstantBookingConfirmation extends ExperienceClientBase {
+export class ExperienceConfirmationPage extends ExperienceClientBase {
 
     private appointmentId: string
 
@@ -19,7 +19,7 @@ export class ExperienceClientInstantBookingConfirmation extends ExperienceClient
         initListener()
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new ExperienceClientInstantBookingConfirmation({
+        return new ExperienceConfirmationPage({
             messageId: messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,

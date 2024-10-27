@@ -1,30 +1,28 @@
 import { AdminClientBase, AdminClientBaseProps } from './admin-client-base'
 import { getInit, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
-import { Appointment, NotificationType } from '../../../types'
+import { NotificationType } from '../../../types'
 
-export class AdminClientAppointmentDetailsInfo extends AdminClientBase {
+export class AdminAppointmentDetails extends AdminClientBase {
 
-    private appointment: Appointment
+    private appointmentId: string
 
-    getAppointment = () => this.appointment
+    getAppointment = () => this.appointmentId
 
-    constructor(props: AdminClientBaseProps & {
-        appointment: Appointment
-    }){
+    constructor(props: AdminClientBaseProps & { appointmentId: string }){
         super(props)
-        this.appointment = props.appointment
+        this.appointmentId = props.appointmentId
     }
     
     static init = async () => {
         initListener()
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new AdminClientAppointmentDetailsInfo({
+        return new AdminAppointmentDetails({
             messageId,
             shopId: payload.shopId,
             locale: payload.locale,
-            appointment: payload.extra.appointment
+            appointmentId: payload.extra?.appointmentId
         })
     }
 

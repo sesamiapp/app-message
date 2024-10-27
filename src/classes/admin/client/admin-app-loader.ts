@@ -3,13 +3,13 @@ import { getInit, navBack, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
 import { NotificationType } from '../../../types'
 
-export class AdminClientAppLoaderMain extends AdminClientBase{
+export class AdminAppLoader extends AdminClientBase{
     
     static init = async () => {
         initListener()
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new AdminClientAppLoaderMain({
+        return new AdminAppLoader({
             messageId,
             shopId: payload.shopId,
             locale: payload.locale

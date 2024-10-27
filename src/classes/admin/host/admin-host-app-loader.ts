@@ -2,7 +2,7 @@ import { AdminHostBase, AdminHostBaseProps } from './admin-host-base'
 import { onBack, onNotification } from '../../../methods/host'
 import { NotificationType } from '../../../types'
 
-export class AdminHostAppLoaderMain extends AdminHostBase {
+export class AdminHostAppLoader extends AdminHostBase {
 
     constructor(
         props: AdminHostBaseProps & {
