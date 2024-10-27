@@ -36,7 +36,7 @@ export class ExperienceHostBase {
     protected slot: Date
     protected extra?: object
 
-    private isWaitingForClientToLoad = false
+    protected isWaitingForClientToLoad = false
 
     constructor(props: ExperienceHostBaseProps){
 
