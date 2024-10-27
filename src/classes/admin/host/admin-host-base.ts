@@ -1,14 +1,15 @@
 import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
 import { initListener } from '../../../helpers'
+import { Constants } from '../../../constants'
 
 export type AdminHostBaseProps = {
     messageId: string
     shopId: string
     locale: string
     extra?: object
+    onInitEnded: (isInitialized: boolean) => void
     getToken: () => Promise<string | null>
     onHeightChange?: (height: number) => void
-    onAppLoaded?: () => void
 }
 
 export class AdminHostBase {
@@ -19,6 +20,8 @@ export class AdminHostBase {
     protected locale: string
     protected extra?: object
 
+    private isWaitingForClientToLoad = false
+
     constructor(props: AdminHostBaseProps){
 
         this.messageId = props.messageId
@@ -26,11 +29,28 @@ export class AdminHostBase {
         this.locale    = props.locale
         this.extra     = props.extra
 
-        initListener()
+        // Timeout for loading client
+        this.isWaitingForClientToLoad = true
+        setTimeout(() => {
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(false)
+                this.isWaitingForClientToLoad = false
+            }
+        }, Constants.CLIENT_LOADING_TIMEOUT)
 
+        // Waiting for client
+        initListener()
         onInit(this.messageId, (source: MessageEventSource) => {
-            props.onAppLoaded?.()
+
             this.source = source
+            
+            // Client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(true)
+                this.isWaitingForClientToLoad = false
+            }
+
+            // Send the context to client
             sendAdminInit(
                 this.messageId,
                 this.source,
@@ -38,6 +58,7 @@ export class AdminHostBase {
                 this.locale,
                 this.extra
             )
+            
         })
 
         onGetToken(this.messageId, async () => {

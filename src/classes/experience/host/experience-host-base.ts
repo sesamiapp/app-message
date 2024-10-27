@@ -1,6 +1,7 @@
 import { onHeight, onInit, sendExperienceInit } from '../../../methods/host'
 import { initListener } from '../../../helpers'
 import { Resource } from '../../../types'
+import { Constants } from '../../../constants'
 
 export type ExperienceHostBaseProps = {
     url: string
@@ -15,8 +16,8 @@ export type ExperienceHostBaseProps = {
     timezone: string
     slot: Date
     extra?: object
+    onInitEnded: (isInitialized: boolean) => void
     onHeightChange?: (height: number) => void
-    onAppLoaded?: () => void
 }
 
 export class ExperienceHostBase {
@@ -35,26 +36,45 @@ export class ExperienceHostBase {
     protected slot: Date
     protected extra?: object
 
+    private isWaitingForClientToLoad = false
+
     constructor(props: ExperienceHostBaseProps){
 
-        this.url = props.url
-        this.messageId = props.messageId,
+        this.url       = props.url
+        this.messageId = props.messageId
         this.sessionId = props.sessionId
-        this.shopId = props.shopId
+        this.shopId    = props.shopId
         this.productId = props.productId
         this.variantId = props.variantId
-        this.quantity = props.quantity
+        this.quantity  = props.quantity
         this.resources = props.resources
-        this.locale = props.locale
-        this.timezone = props.timezone
-        this.slot = props.slot
-        this.extra = props.extra
+        this.locale    = props.locale
+        this.timezone  = props.timezone
+        this.slot      = props.slot
+        this.extra     = props.extra
 
+        // Timeout for loading client
+        this.isWaitingForClientToLoad = true
+        setTimeout(() => {
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(false)
+                this.isWaitingForClientToLoad = false
+            }
+        }, Constants.CLIENT_LOADING_TIMEOUT)
+
+        // Waiting for client
         initListener()
-
         onInit(this.messageId, (source: MessageEventSource) => {
-            props.onAppLoaded?.()
+
             this.source = source
+            
+            // Client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(true)
+                this.isWaitingForClientToLoad = false
+            }
+
+            // Send the context to client
             sendExperienceInit(
                 this.messageId,
                 this.source,
@@ -69,6 +89,7 @@ export class ExperienceHostBase {
                 this.slot,
                 this.extra
             )
+
         })
 
         props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
