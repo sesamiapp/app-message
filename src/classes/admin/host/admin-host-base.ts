@@ -8,6 +8,7 @@ export type AdminHostBaseProps = {
     extra?: object
     getToken: () => Promise<string | null>
     onHeightChange?: (height: number) => void
+    onAppLoaded?: () => void
 }
 
 export class AdminHostBase {
@@ -28,6 +29,7 @@ export class AdminHostBase {
         initListener()
 
         onInit(this.messageId, (source: MessageEventSource) => {
+            props.onAppLoaded?.()
             this.source = source
             sendAdminInit(
                 this.messageId,

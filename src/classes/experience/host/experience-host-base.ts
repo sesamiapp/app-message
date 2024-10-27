@@ -53,8 +53,8 @@ export class ExperienceHostBase {
         initListener()
 
         onInit(this.messageId, (source: MessageEventSource) => {
-            this.source = source
             props.onAppLoaded?.()
+            this.source = source
             sendExperienceInit(
                 this.messageId,
                 this.source,
