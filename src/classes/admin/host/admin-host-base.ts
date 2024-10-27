@@ -2,7 +2,6 @@ import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../..
 import { initListener } from '../../../helpers'
 
 export type AdminHostBaseProps = {
-    timestamp: number
     messageId: string
     shopId: string
     locale: string
@@ -14,7 +13,6 @@ export type AdminHostBaseProps = {
 export class AdminHostBase {
     
     protected messageId: string
-    protected timestamp: number
     protected source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
@@ -22,7 +20,6 @@ export class AdminHostBase {
 
     constructor(props: AdminHostBaseProps){
 
-        this.timestamp = props.timestamp,
         this.messageId = props.messageId
         this.shopId    = props.shopId
         this.locale    = props.locale
