@@ -16,6 +16,7 @@ export type ExperienceHostBaseProps = {
     slot: Date
     extra?: object
     onHeightChange?: (height: number) => void
+    onAppLoaded?: () => void
 }
 
 export class ExperienceHostBase {
@@ -53,6 +54,7 @@ export class ExperienceHostBase {
 
         onInit(this.messageId, (source: MessageEventSource) => {
             this.source = source
+            props.onAppLoaded?.()
             sendExperienceInit(
                 this.messageId,
                 this.source,
