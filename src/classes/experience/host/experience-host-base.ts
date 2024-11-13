@@ -98,7 +98,7 @@ export class ExperienceHostBase {
 
     protected getBaseURL = () => (
         `${this.url}` +
-        `&messageId=${this.messageId}` +
+        `?messageId=${this.messageId}` +
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}` +
         `&productId=${this.productId}` +
