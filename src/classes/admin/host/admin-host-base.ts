@@ -29,7 +29,7 @@ export class AdminHostBase {
         this.locale    = props.locale
         this.extra     = props.extra
 
-        // Timeout for loading client
+        // Timeout for loading client 
         this.isWaitingForClientToLoad = true
         setTimeout(() => {
             if(this.isWaitingForClientToLoad){
