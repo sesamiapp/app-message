@@ -5,7 +5,7 @@ export type ExperienceClientBaseProps = {
     messageId: string,
     sessionId: string,
     shopId: string,
-    productId: string,
+    serviceId: string,
     variantId: string,
     quantity: number,
     resources: Resource[],
@@ -19,7 +19,7 @@ export class ExperienceClientBase {
     protected messageId: string
     private sessionId: string
     private shopId: string
-    private productId: string
+    private serviceId: string
     private variantId: string
     private quantity: number
     private resources: Resource[]
@@ -29,7 +29,7 @@ export class ExperienceClientBase {
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
-    getProductId = () => this.productId
+    getProductId = () => this.serviceId
     getVariantId = () => this.variantId
     getQuantity  = () => this.quantity
     getResources = () => this.resources
@@ -41,7 +41,7 @@ export class ExperienceClientBase {
         this.messageId = props.messageId
         this.sessionId = props.sessionId
         this.shopId    = props.shopId
-        this.productId = props.productId
+        this.serviceId = props.serviceId
         this.variantId = props.variantId
         this.quantity  = props.quantity
         this.resources = props.resources

@@ -30,7 +30,7 @@ export const sendExperienceInit = (
     source: MessageEventSource | null,
     sessionId: string,
     shopId: string,
-    productId: string,
+    serviceId: string,
     variantId: string,
     quantity: number,
     resources: Resource[],
@@ -44,7 +44,7 @@ export const sendExperienceInit = (
         payload: {
             sessionId,
             shopId,
-            productId,
+            serviceId,
             variantId,
             quantity,
             resources,

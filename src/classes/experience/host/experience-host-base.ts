@@ -8,7 +8,7 @@ export type ExperienceHostBaseProps = {
     messageId: string
     sessionId: string
     shopId: string
-    productId: string
+    serviceId: string
     variantId: string
     quantity: number
     resources: Resource[]
@@ -27,7 +27,7 @@ export class ExperienceHostBase {
     protected source: MessageEventSource | null = null
     protected sessionId: string
     protected shopId: string
-    protected productId: string
+    protected serviceId: string
     protected variantId: string
     protected quantity: number
     protected resources: Resource[]
@@ -44,7 +44,7 @@ export class ExperienceHostBase {
         this.messageId = props.messageId
         this.sessionId = props.sessionId
         this.shopId    = props.shopId
-        this.productId = props.productId
+        this.serviceId = props.serviceId
         this.variantId = props.variantId
         this.quantity  = props.quantity
         this.resources = props.resources
@@ -74,7 +74,7 @@ export class ExperienceHostBase {
                 this.source,
                 this.sessionId,
                 this.shopId,
-                this.productId,
+                this.serviceId,
                 this.variantId,
                 this.quantity,
                 this.resources,
@@ -101,7 +101,7 @@ export class ExperienceHostBase {
         `?messageId=${this.messageId}` +
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}` +
-        `&productId=${this.productId}` +
+        `&serviceId=${this.serviceId}` +
         `&variantId=${this.variantId}` +
         `&quantity=${this.quantity}` +
         `&resources=${JSON.stringify(this.resources.map(resource => resource.id))}` +
