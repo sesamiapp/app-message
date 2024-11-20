@@ -67,12 +67,6 @@ export class ExperienceHostBase {
         onInit(this.messageId, (source: MessageEventSource) => {
 
             this.source = source
-            
-            // Client loaded successfully
-            if(this.isWaitingForClientToLoad){
-                props.onInitEnded(true)
-                this.isWaitingForClientToLoad = false
-            }
 
             // Send the context to client
             sendExperienceInit(
@@ -89,6 +83,12 @@ export class ExperienceHostBase {
                 this.slot,
                 this.extra
             )
+            
+            // Client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(true)
+                this.isWaitingForClientToLoad = false
+            }
 
         })
 
