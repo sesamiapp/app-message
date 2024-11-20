@@ -53,7 +53,7 @@ export class AdminHostBase {
                 this.extra
             )
             
-            // Client loaded successfully
+            // The client loaded successfully
             if(this.isWaitingForClientToLoad){
                 props.onInitEnded(true)
                 this.isWaitingForClientToLoad = false

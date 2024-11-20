@@ -12,7 +12,7 @@ export class ExperienceInstantBookingForm extends ExperienceClientBase{
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
-            productId: payload.productId,
+            serviceId: payload.serviceId,
             variantId: payload.variantId,
             quantity: payload.quantity,
             resources: payload.resources,

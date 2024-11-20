@@ -23,7 +23,7 @@ export class ExperienceConfirmationPage extends ExperienceClientBase {
             messageId: messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
-            productId: payload.productId,
+            serviceId: payload.serviceId,
             variantId: payload.variantId,
             quantity: payload.quantity,
             resources: payload.resources,
