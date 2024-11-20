@@ -43,6 +43,12 @@ export class AdminHostBase {
         onInit(this.messageId, (source: MessageEventSource) => {
 
             this.source = source
+            
+            // Client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(true)
+                this.isWaitingForClientToLoad = false
+            }
 
             // Send the context to client
             sendAdminInit(
@@ -52,12 +58,6 @@ export class AdminHostBase {
                 this.locale,
                 this.extra
             )
-            
-            // Client loaded successfully
-            if(this.isWaitingForClientToLoad){
-                props.onInitEnded(true)
-                this.isWaitingForClientToLoad = false
-            }
             
         })
 
