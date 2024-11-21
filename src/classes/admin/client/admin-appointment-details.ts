@@ -7,7 +7,7 @@ export class AdminAppointmentDetails extends AdminClientBase {
 
     private appointmentId: string
 
-    getAppointment = () => this.appointmentId
+    getAppointmentId = () => this.appointmentId
 
     constructor(props: AdminClientBaseProps & { appointmentId: string }){
         super(props)
