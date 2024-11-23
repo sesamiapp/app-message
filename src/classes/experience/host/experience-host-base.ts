@@ -86,8 +86,10 @@ export class ExperienceHostBase {
             
             // The client loaded successfully
             if(this.isWaitingForClientToLoad){
-                props.onInitEnded(true)
                 this.isWaitingForClientToLoad = false
+                setTimeout(() => {
+                    props.onInitEnded(true)
+                }, 100)
             }
 
         })
