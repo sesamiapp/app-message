@@ -1,5 +1,5 @@
 import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
-import { initListener } from '../../../helpers'
+import { initListener, isTokenExpired } from '../../../helpers'
 import { Constants } from '../../../constants'
 
 export type AdminHostBaseProps = {
@@ -18,11 +18,14 @@ export class AdminHostBase {
     protected source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
+    protected token: string | null
     protected extra?: object
 
     private isWaitingForClientToLoad = false
 
     constructor(props: AdminHostBaseProps){
+
+        this.token = '' //todo
 
         this.messageId = props.messageId
         this.shopId    = props.shopId
@@ -64,8 +67,13 @@ export class AdminHostBase {
         })
 
         onGetToken(this.messageId, async () => {
-            const token = await props.getToken()
-            this.source && sendToken(this.messageId, this.source, token)
+            if(this.token && !isTokenExpired(this.token)){
+                this.source && sendToken(this.messageId, this.source, this.token)
+            }else{
+                const token = await props.getToken()
+                this.token = token
+                return this.token
+            }
         })
 
         props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
