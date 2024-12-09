@@ -1,5 +1,5 @@
 import { getToken, initPageSizeListener } from '../../../methods/client'
-import { isTokenExpired } from '../../../helpers'
+import { getTokenExpiration, isTokenExpired } from '../../../helpers'
 
 export type AdminClientBaseProps = {
     messageId: string,
@@ -25,6 +25,16 @@ export class AdminClientBase {
     }
 
     getToken = async (): Promise<string | null> => {
+        
+        
+        console.log('this.token', this.token)
+        if(this.token){
+            console.log('getTokenExpiration(this.token)', getTokenExpiration(this.token))
+            console.log('new Date(getTokenExpiration(this.token))', new Date(getTokenExpiration(this.token)))
+            console.log('!isTokenExpired(this.token)', !isTokenExpired(this.token))
+        }
+
+
         if(this.token && !isTokenExpired(this.token)){
             return this.token
         }else{
