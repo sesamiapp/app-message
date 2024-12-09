@@ -1,5 +1,5 @@
 import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
-import { initListener, isTokenExpired } from '../../../helpers'
+import { getUrlParam, initListener, isTokenExpired } from '../../../helpers'
 import { Constants } from '../../../constants'
 
 export type AdminHostBaseProps = {
@@ -14,19 +14,18 @@ export type AdminHostBaseProps = {
 
 export class AdminHostBase {
     
+    protected token: string | null
     protected messageId: string
     protected source: MessageEventSource | null = null
     protected shopId: string
     protected locale: string
-    protected token: string | null
     protected extra?: object
 
     private isWaitingForClientToLoad = false
 
     constructor(props: AdminHostBaseProps){
 
-        this.token = '' //todo
-
+        this.token     = getUrlParam('token') ?? ''
         this.messageId = props.messageId
         this.shopId    = props.shopId
         this.locale    = props.locale
