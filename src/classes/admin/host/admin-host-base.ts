@@ -71,7 +71,7 @@ export class AdminHostBase {
             }else{
                 const token = await props.getToken()
                 this.token = token
-                return this.token
+                this.source && sendToken(this.messageId, this.source, this.token)
             }
         })
 
