@@ -16,7 +16,7 @@ export class ExperienceConfirmationPage extends ExperienceClientBase {
     }
 
     static init = async () => {
-        initListener('client')
+        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
         return new ExperienceConfirmationPage({

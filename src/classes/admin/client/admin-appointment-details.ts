@@ -15,7 +15,7 @@ export class AdminAppointmentDetails extends AdminClientBase {
     }
     
     static init = async () => {
-        initListener('client')
+        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
         return new AdminAppointmentDetails({
