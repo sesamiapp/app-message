@@ -1,5 +1,5 @@
 import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
-import { getUrlParam, initListener, isTokenExpired } from '../../../helpers'
+import { initListener, isTokenExpired } from '../../../helpers'
 import { Constants } from '../../../constants'
 
 export type AdminHostBaseProps = {
