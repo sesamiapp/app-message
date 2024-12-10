@@ -22,6 +22,6 @@ export class AdminClientBase {
         initPageSizeListener(this.messageId)
     }
 
-    getToken = getToken
+    getToken = () => getToken(this.messageId)
 
 }
