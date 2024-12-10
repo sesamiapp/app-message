@@ -25,7 +25,7 @@ export class AdminHostBase {
 
     constructor(props: AdminHostBaseProps){
 
-        this.token     = getUrlParam('token') ?? ''
+        this.token     = null
         this.messageId = props.messageId
         this.shopId    = props.shopId
         this.locale    = props.locale
