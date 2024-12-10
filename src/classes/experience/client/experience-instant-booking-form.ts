@@ -5,7 +5,7 @@ import { getUrlParam, initListener } from '../../../helpers'
 export class ExperienceInstantBookingForm extends ExperienceClientBase{
 
     static init = async () => {
-        initListener()
+        initListener('client')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
         return new ExperienceInstantBookingForm({

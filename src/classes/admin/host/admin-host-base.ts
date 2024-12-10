@@ -41,7 +41,7 @@ export class AdminHostBase {
         }, Constants.CLIENT_LOADING_TIMEOUT)
 
         // Waiting for client
-        initListener()
+        initListener('host')
         onInit(this.messageId, (source: MessageEventSource) => {
 
             this.source = source

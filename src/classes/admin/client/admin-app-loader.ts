@@ -6,7 +6,7 @@ import { NotificationType } from '../../../types'
 export class AdminAppLoader extends AdminClientBase{
     
     static init = async () => {
-        initListener()
+        initListener('client')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
         return new AdminAppLoader({

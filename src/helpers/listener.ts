@@ -1,7 +1,7 @@
-export const initListener = () => {
+export const initListener = (side: 'host' | 'client') => {
     if(!window.onmessage){
         window.onmessage = (event: MessageEvent<any>) => {
-            console.info(event.data.action, event)
+            console.info(side, event.data.action, event)
             window.dispatchEvent(new CustomEvent(event.data.action, {
                 detail: {
                     event
