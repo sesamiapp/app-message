@@ -1,11 +1,9 @@
 name: Publish to npmjs.com
 on:
-  pull_request_review:
-    types:
-      - submitted
+  release:
+    types: [ released ]
 jobs:
   publish-to-npm:
-    if: ${{ github.event.review.body == 'publish' }}
     name: Publish to NPM
     runs-on: ubuntu-latest
     permissions:
@@ -29,6 +27,6 @@ jobs:
       - name: building the library
         run: pnpm run build
       - name: publish package to npm
-        run: pnpm publish --no-git-checks # talk about it
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
