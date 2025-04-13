@@ -1,41 +1,57 @@
-import { ExperienceClientBase, ExperienceClientBaseProps } from './experience-client-base'
-import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
+import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { CartItem } from '../../../types'
 
-export class ExperienceConfirmationPage extends ExperienceClientBase {
+type Props = {
+    messageId: string,
+    sessionId: string,
+    shopId: string,
+    locale: string,
+    cart: CartItem[]
+    bookingId: string
+}
 
-    private appointmentId: string
+export class ExperienceConfirmationPage {
 
-    getAppointmentId = () => this.appointmentId
+    protected messageId: string
+    private sessionId: string
+    private shopId: string
+    private locale: string
+    private cart: CartItem[]
+    private bookingId: string
 
-    constructor(props: ExperienceClientBaseProps & {
-        appointmentId: string
-    }){
-        super(props)
-        this.appointmentId = props.appointmentId
-    }
+    getSessionId = () => this.sessionId
+    getShopId    = () => this.shopId
+    getLocale    = () => this.locale
+    getCart      = () => this.cart
+    getBookingId = () => this.bookingId
 
     static init = async () => {
         initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
         return new ExperienceConfirmationPage({
-            messageId: messageId,
+            messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
-            serviceId: payload.serviceId,
-            variantId: payload.variantId,
-            quantity: payload.quantity,
-            resources: payload.resources,
             locale: payload.locale,
-            timezone: payload.timezone,
-            slot: payload.slot,
-            appointmentId: payload.extra.appointmentId
+            cart: payload.cart,
+            bookingId: payload.bookingId
         })
     }
+
+    constructor(props: Props){
+        this.messageId = props.messageId
+        this.sessionId = props.sessionId
+        this.shopId    = props.shopId
+        this.locale    = props.locale
+        this.cart      = props.cart
+        this.bookingId = props.bookingId
+        initPageSizeListener(this.messageId)
+    }
     
-    onDone = (callback: () => void) => onNext(this.messageId, callback)
-    acceptDone = () => acceptNext(this.messageId)
-    rejectDone = () => rejectNext(this.messageId)
+    onConfirm = (callback: () => void) => onNext(this.messageId, callback)
+    acceptConfirm = () => acceptNext(this.messageId)
+    rejectConfirm = () => rejectNext(this.messageId)
 
 }

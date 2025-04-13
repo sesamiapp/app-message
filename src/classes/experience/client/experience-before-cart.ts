@@ -1,8 +1,42 @@
-import { ExperienceClientBase } from './experience-client-base'
-import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
+import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { Resource } from '../../../types'
 
-export class ExperienceBeforeCart extends ExperienceClientBase{
+type Props = {
+    messageId: string,
+    sessionId: string,
+    shopId: string,
+    locale: string,
+    serviceId: string,
+    variantId: string,
+    quantity: number,
+    resources: Resource[],
+    timezone: string,
+    slot: Date
+}
+
+export class ExperienceBeforeCart {
+
+    protected messageId: string
+    private sessionId: string
+    private shopId: string
+    private locale: string
+    private serviceId: string
+    private variantId: string
+    private quantity: number
+    private resources: Resource[]
+    private timezone: string
+    private slot: Date
+
+    getSessionId = () => this.sessionId
+    getShopId    = () => this.shopId
+    getLocale    = () => this.locale
+    getServiceId = () => this.serviceId
+    getVariantId = () => this.variantId
+    getQuantity  = () => this.quantity
+    getResources = () => this.resources
+    getTimezone  = () => this.timezone
+    getSlot      = () => this.slot
 
     static init = async () => {
         initListener('host')
@@ -12,14 +46,28 @@ export class ExperienceBeforeCart extends ExperienceClientBase{
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
+            locale: payload.locale,
             serviceId: payload.serviceId,
             variantId: payload.variantId,
             quantity: payload.quantity,
             resources: payload.resources,
-            locale: payload.locale,
             timezone: payload.timezone,
             slot: payload.slot
         })
+    }
+
+    constructor(props: Props){
+        this.messageId = props.messageId
+        this.sessionId = props.sessionId
+        this.shopId    = props.shopId
+        this.locale    = props.locale
+        this.serviceId = props.serviceId
+        this.variantId = props.variantId
+        this.quantity  = props.quantity
+        this.resources = props.resources
+        this.timezone  = props.timezone
+        this.slot      = props.slot
+        initPageSizeListener(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

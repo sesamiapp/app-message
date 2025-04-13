@@ -1,6 +1,11 @@
-export type Cart = {
-    sessionId: string,
-    shopId: string
+import { Resource } from './resource.type'
+
+export type CartItem = {
     serviceId: string
-    
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
+    reservationToken: string | null
 }

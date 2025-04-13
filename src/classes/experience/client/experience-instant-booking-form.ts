@@ -1,8 +1,27 @@
-import { ExperienceClientBase } from './experience-client-base'
-import { getInit, acceptNext, onNext, rejectNext } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
+import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { CartItem } from '../../../types'
 
-export class ExperienceInstantBookingForm extends ExperienceClientBase{
+type Props = {
+    messageId: string,
+    sessionId: string,
+    shopId: string,
+    locale: string,
+    cart: CartItem[]
+}
+
+export class ExperienceInstantBookingForm {
+
+    protected messageId: string
+    private sessionId: string
+    private shopId: string
+    private locale: string
+    private cart: CartItem[]
+
+    getSessionId = () => this.sessionId
+    getShopId    = () => this.shopId
+    getLocale    = () => this.locale
+    getCart      = () => this.cart
 
     static init = async () => {
         initListener('host')
@@ -12,14 +31,18 @@ export class ExperienceInstantBookingForm extends ExperienceClientBase{
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
-            serviceId: payload.serviceId,
-            variantId: payload.variantId,
-            quantity: payload.quantity,
-            resources: payload.resources,
             locale: payload.locale,
-            timezone: payload.timezone,
-            slot: payload.slot
+            cart: payload.cart
         })
+    }
+
+    constructor(props: Props){
+        this.messageId = props.messageId
+        this.sessionId = props.sessionId
+        this.shopId    = props.shopId
+        this.locale    = props.locale
+        this.cart      = props.cart
+        initPageSizeListener(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

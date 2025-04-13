@@ -1,8 +1,100 @@
-import { ExperienceHostBase } from './experience-host-base'
-import { askNext } from '../../../methods/host'
-import { AppTarget } from '../../../types'
+import { askNext, onHeight, onInit, sendExperienceInit } from '../../../methods/host'
+import { initListener } from '../../../helpers'
+import { Constants } from '../../../constants'
+import { AppTarget, Resource } from '../../../types'
 
-export class ExperienceHostBeforeCart extends ExperienceHostBase {
+type Props = {
+    url: string
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    serviceId: string
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
+    onInitEnded: (isInitialized: boolean) => void
+    onHeightChange?: (height: number) => void
+}
+
+export class ExperienceHostBeforeCart {
+
+    protected url: string
+    protected messageId: string
+    protected source: MessageEventSource | null = null
+    protected sessionId: string
+    protected shopId: string
+    protected locale: string
+    protected serviceId: string
+    protected variantId: string
+    protected quantity: number
+    protected resources: Resource[]
+    protected timezone: string
+    protected slot: Date
+
+    protected isWaitingForClientToLoad = false
+
+    constructor(props: Props){
+
+        this.url       = props.url
+        this.messageId = props.messageId
+        this.sessionId = props.sessionId
+        this.shopId    = props.shopId
+        this.locale    = props.locale
+        this.serviceId = props.serviceId
+        this.variantId = props.variantId
+        this.quantity  = props.quantity
+        this.resources = props.resources
+        this.timezone  = props.timezone
+        this.slot      = props.slot
+
+        // Timeout for loading client
+        this.isWaitingForClientToLoad = true
+        setTimeout(() => {
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(false)
+                this.isWaitingForClientToLoad = false
+            }
+        }, Constants.CLIENT_LOADING_TIMEOUT)
+
+        // Waiting for client
+        initListener('client')
+        onInit(this.messageId, (source: MessageEventSource) => {
+
+            this.source = source
+
+            // Send the context to client
+            sendExperienceInit({
+                messageId: this.messageId,
+                source: this.source,
+                payload: {
+                    sessionId: this.sessionId,
+                    shopId:    this.shopId,
+                    locale:    this.locale,
+                    serviceId: this.serviceId,
+                    variantId: this.variantId,
+                    quantity:  this.quantity,
+                    resources: this.resources,
+                    timezone:  this.timezone,
+                    slot:      this.slot
+                }
+            })
+            
+            // The client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                this.isWaitingForClientToLoad = false
+                setTimeout(() => {
+                    props.onInitEnded(true)
+                }, 100)
+            }
+
+        })
+
+        props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
+
+    }
 
     askForConfirm = async () => {
         if(this.source){
@@ -14,6 +106,18 @@ export class ExperienceHostBeforeCart extends ExperienceHostBase {
         }
     }
 
-    getURL = () => `${this.getBaseURL()}&target=${AppTarget.EXPERIENCE_BEFORE_CART}`
+    getURL = () =>
+        `${this.url}`                  +
+        `?messageId=${this.messageId}` +
+        `&sessionId=${this.sessionId}` +
+        `&shopId=${this.shopId}`       +
+        `&locale=${this.locale}`       +
+        `?serviceId=${this.serviceId}` +
+        `?variantId=${this.variantId}` +
+        `?quantity=${this.quantity}`   +
+        `&resources=${JSON.stringify(this.resources.map(resource => resource.id))}` +
+        `&timezone=${this.timezone}`   +
+        `&slot=${this.slot.getTime()}` +
+        `&target=${AppTarget.EXPERIENCE_BEFORE_CART}`
 
 }

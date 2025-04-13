@@ -1,8 +1,80 @@
-import { ExperienceHostBase } from './experience-host-base'
-import { askNext } from '../../../methods/host'
-import { AppTarget } from '../../../types'
+import { askNext, onHeight, onInit, sendExperienceInit } from '../../../methods/host'
+import { initListener } from '../../../helpers'
+import { Constants } from '../../../constants'
+import { AppTarget, CartItem } from '../../../types'
 
-export class ExperienceHostInstantBookingForm extends ExperienceHostBase {
+type Props = {
+    url: string
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
+    onInitEnded: (isInitialized: boolean) => void
+    onHeightChange?: (height: number) => void
+}
+
+export class ExperienceHostInstantBookingForm {
+
+    protected url: string
+    protected messageId: string
+    protected source: MessageEventSource | null = null
+    protected sessionId: string
+    protected shopId: string
+    protected locale: string
+    protected cart: CartItem[]
+
+    protected isWaitingForClientToLoad = false
+
+    constructor(props: Props){
+
+        this.url       = props.url
+        this.messageId = props.messageId
+        this.sessionId = props.sessionId
+        this.shopId    = props.shopId
+        this.locale    = props.locale
+        this.cart      = props.cart
+
+        // Timeout for loading client
+        this.isWaitingForClientToLoad = true
+        setTimeout(() => {
+            if(this.isWaitingForClientToLoad){
+                props.onInitEnded(false)
+                this.isWaitingForClientToLoad = false
+            }
+        }, Constants.CLIENT_LOADING_TIMEOUT)
+
+        // Waiting for client
+        initListener('client')
+        onInit(this.messageId, (source: MessageEventSource) => {
+
+            this.source = source
+
+            // Send the context to client
+            sendExperienceInit({
+                messageId: this.messageId,
+                source: this.source,
+                payload: {
+                    sessionId: this.sessionId,
+                    shopId:    this.shopId,
+                    locale:    this.locale,
+                    cart:      this.cart
+                }
+            })
+            
+            // The client loaded successfully
+            if(this.isWaitingForClientToLoad){
+                this.isWaitingForClientToLoad = false
+                setTimeout(() => {
+                    props.onInitEnded(true)
+                }, 100)
+            }
+
+        })
+
+        props.onHeightChange && onHeight(this.messageId, props.onHeightChange)
+
+    }
 
     askForConfirm = async () => {
         if(this.source){
@@ -14,6 +86,12 @@ export class ExperienceHostInstantBookingForm extends ExperienceHostBase {
         }
     }
 
-    getURL = () => `${this.getBaseURL()}&target=${AppTarget.EXPERIENCE_INSTANT_BOOKING_FORM}`
+    getURL = () =>
+        `${this.url}`                  +
+        `?messageId=${this.messageId}` +
+        `&sessionId=${this.sessionId}` +
+        `&shopId=${this.shopId}`       +
+        `&locale=${this.locale}`       +
+        `&target=${AppTarget.EXPERIENCE_INSTANT_BOOKING_FORM}`
 
 }
