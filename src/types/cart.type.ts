@@ -7,5 +7,5 @@ export type CartItem = {
     resources: Resource[]
     timezone: string
     slot: Date
-    reservationToken: string | null
+    reservationId: string | null
 }
