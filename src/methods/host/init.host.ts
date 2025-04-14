@@ -1,5 +1,5 @@
 import { getEvent } from '../../helpers'
-import { Action, Message, Resource } from '../../types'
+import { Action, Message } from '../../types'
 
 export const onInit = (messageId: string, callback: (source: MessageEventSource) => void) => {
     window.addEventListener(getEvent(messageId, Action.INIT), (e: any) => {
@@ -25,34 +25,14 @@ export const sendAdminInit = (
     source?.postMessage(data, { targetOrigin: '*' })
 }
 
-export const sendExperienceInit = (
+export const sendExperienceInit = (attr: {
     messageId: string,
     source: MessageEventSource | null,
-    sessionId: string,
-    shopId: string,
-    serviceId: string,
-    variantId: string,
-    quantity: number,
-    resources: Resource[],
-    locale: string,
-    timezone: string,
-    slot: Date,
-    extra?: object
-) => {
+    payload: object
+}) => {
     const data: Message = {
-        action: getEvent(messageId, Action.INIT),
-        payload: {
-            sessionId,
-            shopId,
-            serviceId,
-            variantId,
-            quantity,
-            resources,
-            locale,
-            timezone,
-            slot,
-            extra
-        }
+        action: getEvent(attr.messageId, Action.INIT),
+        payload: attr.payload
     }
-    source?.postMessage(data, { targetOrigin: '*' })
+    attr.source?.postMessage(data, { targetOrigin: '*' })
 }
