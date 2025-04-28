@@ -10,13 +10,13 @@ type Props = {
     cart: CartItem[]
 }
 
-export class ExperienceInstantBookingForm {
+export class ExperienceBookingForm {
 
-    protected messageId: string
-    private sessionId: string
-    private shopId: string
-    private locale: string
-    private cart: CartItem[]
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
@@ -27,7 +27,7 @@ export class ExperienceInstantBookingForm {
         initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new ExperienceInstantBookingForm({
+        return new ExperienceBookingForm({
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,

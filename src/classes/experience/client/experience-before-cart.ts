@@ -17,16 +17,16 @@ type Props = {
 
 export class ExperienceBeforeCart {
 
-    protected messageId: string
-    private sessionId: string
-    private shopId: string
-    private locale: string
-    private serviceId: string
-    private variantId: string
-    private quantity: number
-    private resources: Resource[]
-    private timezone: string
-    private slot: Date
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    serviceId: string
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId

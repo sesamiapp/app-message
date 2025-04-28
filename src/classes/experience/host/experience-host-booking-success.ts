@@ -10,21 +10,23 @@ type Props = {
     shopId: string
     locale: string
     cart: CartItem[]
+    bookingId: string
     onInitEnded: (isInitialized: boolean) => void
     onHeightChange?: (height: number) => void
 }
 
-export class ExperienceHostInstantBookingForm {
+export class ExperienceHostBookingSuccess {
 
-    protected url: string
-    protected messageId: string
-    protected source: MessageEventSource | null = null
-    protected sessionId: string
-    protected shopId: string
-    protected locale: string
-    protected cart: CartItem[]
+    url: string
+    messageId: string
+    source: MessageEventSource | null = null
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
+    bookingId: string
 
-    protected isWaitingForClientToLoad = false
+    isWaitingForClientToLoad = false
 
     constructor(props: Props){
 
@@ -34,6 +36,7 @@ export class ExperienceHostInstantBookingForm {
         this.shopId    = props.shopId
         this.locale    = props.locale
         this.cart      = props.cart
+        this.bookingId = props.bookingId
 
         // Timeout for loading client
         this.isWaitingForClientToLoad = true
@@ -58,7 +61,8 @@ export class ExperienceHostInstantBookingForm {
                     sessionId: this.sessionId,
                     shopId:    this.shopId,
                     locale:    this.locale,
-                    cart:      this.cart
+                    cart:      this.cart,
+                    bookingId: this.bookingId
                 }
             })
             
@@ -92,6 +96,6 @@ export class ExperienceHostInstantBookingForm {
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}`       +
         `&locale=${this.locale}`       +
-        `&target=${AppTarget.EXPERIENCE_INSTANT_BOOKING_FORM}`
+        `&target=${AppTarget.EXPERIENCE_BOOKING_SUCCESS}`
 
 }

@@ -11,14 +11,14 @@ type Props = {
     bookingId: string
 }
 
-export class ExperienceConfirmationPage {
+export class ExperienceBookingSuccess {
 
-    protected messageId: string
-    private sessionId: string
-    private shopId: string
-    private locale: string
-    private cart: CartItem[]
-    private bookingId: string
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
+    bookingId: string
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
@@ -30,7 +30,7 @@ export class ExperienceConfirmationPage {
         initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
         const payload: any = await getInit(messageId)
-        return new ExperienceConfirmationPage({
+        return new ExperienceBookingSuccess({
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,

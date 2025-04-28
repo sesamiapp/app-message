@@ -26,6 +26,7 @@ export const sendAdminInit = (
 }
 
 export const sendExperienceInit = (attr: {
+    version: string,
     messageId: string,
     source: MessageEventSource | null,
     payload: object

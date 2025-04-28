@@ -1,7 +1,7 @@
 import { askNext, onHeight, onInit, sendExperienceInit } from '../../../methods/host'
 import { initListener } from '../../../helpers'
 import { Constants } from '../../../constants'
-import { AppTarget, CartItem } from '../../../types'
+import { AppTarget, Resource } from '../../../types'
 
 type Props = {
     url: string
@@ -9,34 +9,52 @@ type Props = {
     sessionId: string
     shopId: string
     locale: string
-    cart: CartItem[]
-    bookingId: string
+    appointmentId: string
+    locationId: string
+    serviceId: string
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
     onInitEnded: (isInitialized: boolean) => void
     onHeightChange?: (height: number) => void
 }
 
-export class ExperienceHostConfirmationPage {
+export class ExperienceHostReschedulingSuccess {
 
-    protected url: string
-    protected messageId: string
-    protected source: MessageEventSource | null = null
-    protected sessionId: string
-    protected shopId: string
-    protected locale: string
-    protected cart: CartItem[]
-    protected bookingId: string
+    url: string
+    messageId: string
+    source: MessageEventSource | null = null
+    sessionId: string
+    shopId: string
+    locale: string
+    appointmentId: string
+    locationId: string
+    serviceId: string
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
 
-    protected isWaitingForClientToLoad = false
+    isWaitingForClientToLoad = false
 
     constructor(props: Props){
 
-        this.url       = props.url
-        this.messageId = props.messageId
-        this.sessionId = props.sessionId
-        this.shopId    = props.shopId
-        this.locale    = props.locale
-        this.cart      = props.cart
-        this.bookingId = props.bookingId
+        this.url           = props.url
+        this.messageId     = props.messageId
+        this.sessionId     = props.sessionId
+        this.shopId        = props.shopId
+        this.locale        = props.locale
+        this.appointmentId = props.appointmentId
+        this.locationId    = props.locationId
+        this.serviceId     = props.serviceId
+        this.variantId     = props.variantId
+        this.quantity      = props.quantity
+        this.resources     = props.resources
+        this.timezone      = props.timezone
+        this.slot          = props.slot
 
         // Timeout for loading client
         this.isWaitingForClientToLoad = true
@@ -58,11 +76,17 @@ export class ExperienceHostConfirmationPage {
                 messageId: this.messageId,
                 source: this.source,
                 payload: {
-                    sessionId: this.sessionId,
-                    shopId:    this.shopId,
-                    locale:    this.locale,
-                    cart:      this.cart,
-                    bookingId: this.bookingId
+                    sessionId:     this.sessionId,
+                    shopId:        this.shopId,
+                    locale:        this.locale,
+                    appointmentId: this.appointmentId,
+                    locationId:    this.locationId,
+                    serviceId:     this.serviceId,
+                    variantId:     this.variantId,
+                    quantity:      this.quantity,
+                    resources:     this.resources,
+                    timezone:      this.timezone,
+                    slot:          this.slot
                 }
             })
             
@@ -96,6 +120,6 @@ export class ExperienceHostConfirmationPage {
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}`       +
         `&locale=${this.locale}`       +
-        `&target=${AppTarget.EXPERIENCE_CONFIRMATION_PAGE}`
+        `&target=${AppTarget.EXPERIENCE_BOOKING_SUCCESS}`
 
 }

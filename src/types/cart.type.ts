@@ -1,6 +1,7 @@
 import { Resource } from './resource.type'
 
 export type CartItem = {
+    locationId: string
     serviceId: string
     variantId: string
     quantity: number
