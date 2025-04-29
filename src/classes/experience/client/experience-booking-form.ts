@@ -1,5 +1,5 @@
-import { getUrlParam, initListener } from '../../../helpers'
-import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { getUrlParam } from '../../../helpers'
+import { acceptNext, requestHostForInit, listenToHostPageSizeChange, onNext, rejectNext } from '../../../methods/client'
 import { CartItem } from '../../../types'
 
 type Props = {
@@ -24,9 +24,8 @@ export class ExperienceBookingForm {
     getCart      = () => this.cart
 
     static init = async () => {
-        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
-        const payload: any = await getInit(messageId)
+        const payload: any = await requestHostForInit(messageId, '1.0.0')
         return new ExperienceBookingForm({
             messageId,
             sessionId: payload.sessionId,
@@ -42,7 +41,7 @@ export class ExperienceBookingForm {
         this.shopId    = props.shopId
         this.locale    = props.locale
         this.cart      = props.cart
-        initPageSizeListener(this.messageId)
+        listenToHostPageSizeChange(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

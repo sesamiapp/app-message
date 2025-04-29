@@ -1,9 +1,13 @@
-import { getEvent } from '../../helpers'
+import { getEvent, initWindowMessageListener } from '../../helpers'
 import { Action, Message } from '../../types'
 
-export const getInit = (messageId: string) => {
+export const requestHostForInit = (messageId: string, version: string) => {
+    initWindowMessageListener()
     const data: Message = {
-        action: getEvent(messageId, Action.INIT)
+        action: getEvent(messageId, Action.INIT),
+        payload: {
+            version
+        }
     }
     window.top?.postMessage(data, '*')
     return new Promise(resolve => {
@@ -13,7 +17,7 @@ export const getInit = (messageId: string) => {
     })
 }
 
-export const initPageSizeListener = (messageId: string) => {
+export const listenToHostPageSizeChange = (messageId: string) => {
     const resizeObserver = new ResizeObserver(entries => {
         const data: Message = {
             action: getEvent(messageId, Action.HEIGHT),

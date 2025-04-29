@@ -1,5 +1,5 @@
-import { getUrlParam, initListener } from '../../../helpers'
-import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { getUrlParam } from '../../../helpers'
+import { acceptNext, requestHostForInit, listenToHostPageSizeChange, onNext, rejectNext } from '../../../methods/client'
 import { Resource } from '../../../types'
 
 type Props = {
@@ -45,9 +45,8 @@ export class ExperienceReschedulingSuccess {
     getSlot          = () => this.slot
     
     static init = async () => {
-        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
-        const payload: any = await getInit(messageId)
+        const payload: any = await requestHostForInit(messageId)
         return new ExperienceReschedulingSuccess({
             messageId,
             sessionId:     payload.sessionId,
@@ -77,7 +76,7 @@ export class ExperienceReschedulingSuccess {
         this.resources     = props.resources
         this.timezone      = props.timezone
         this.slot          = props.slot
-        initPageSizeListener(this.messageId)
+        listenToHostPageSizeChange(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

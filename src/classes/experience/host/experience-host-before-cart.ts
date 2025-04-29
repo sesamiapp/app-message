@@ -1,5 +1,4 @@
-import { askNext, onHeight, onInit, sendExperienceInit } from '../../../methods/host'
-import { initListener } from '../../../helpers'
+import { askNext, listenForClientInitRequest, onHeight, respondExperienceClientInitRequest } from '../../../methods/host'
 import { Constants } from '../../../constants'
 import { AppTarget, Resource } from '../../../types'
 
@@ -15,7 +14,7 @@ type Props = {
     resources: Resource[]
     timezone: string
     slot: Date
-    onInitEnded: (isInitialized: boolean) => void
+    listenForClientInitRequestEnded: (isInitialized: boolean) => void
     onHeightChange?: (height: number) => void
 }
 
@@ -24,6 +23,7 @@ export class ExperienceHostBeforeCart {
     url: string
     messageId: string
     source: MessageEventSource | null = null
+    version: string | null = null
     sessionId: string
     shopId: string
     locale: string
@@ -54,19 +54,19 @@ export class ExperienceHostBeforeCart {
         this.isWaitingForClientToLoad = true
         setTimeout(() => {
             if(this.isWaitingForClientToLoad){
-                props.onInitEnded(false)
+                props.listenForClientInitRequestEnded(false)
                 this.isWaitingForClientToLoad = false
             }
         }, Constants.CLIENT_LOADING_TIMEOUT)
 
         // Waiting for client
-        initListener('client')
-        onInit(this.messageId, (source: MessageEventSource) => {
+        listenForClientInitRequest(this.messageId, (source: MessageEventSource, version: string) => {
 
             this.source = source
+            this.version = version
 
             // Send the context to client
-            sendExperienceInit({
+            respondExperienceClientInitRequest({
                 messageId: this.messageId,
                 source: this.source,
                 payload: {
@@ -86,7 +86,7 @@ export class ExperienceHostBeforeCart {
             if(this.isWaitingForClientToLoad){
                 this.isWaitingForClientToLoad = false
                 setTimeout(() => {
-                    props.onInitEnded(true)
+                    props.listenForClientInitRequestEnded(true)
                 }, 100)
             }
 
