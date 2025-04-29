@@ -1,5 +1,4 @@
-import { askNext, onHeight, onInit, sendExperienceInit } from '../../../methods/host'
-import { initListener } from '../../../helpers'
+import { askNext, onHeight, listenForClientInitRequest, respondExperienceClientInitRequest } from '../../../methods/host'
 import { Constants } from '../../../constants'
 import { AppTarget, CartItem } from '../../../types'
 
@@ -10,23 +9,22 @@ type Props = {
     shopId: string
     locale: string
     cart: CartItem[]
-    bookingId: string
-    onInitEnded: (isInitialized: boolean) => void
+    listenForClientInitRequestEnded: (isInitialized: boolean) => void
     onHeightChange?: (height: number) => void
 }
 
-export class ExperienceHostConfirmationPage {
+export class ExperienceHostBookingForm {
 
-    protected url: string
-    protected messageId: string
-    protected source: MessageEventSource | null = null
-    protected sessionId: string
-    protected shopId: string
-    protected locale: string
-    protected cart: CartItem[]
-    protected bookingId: string
+    url: string
+    messageId: string
+    source: MessageEventSource | null = null
+    version: string | null = null
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
 
-    protected isWaitingForClientToLoad = false
+    isWaitingForClientToLoad = false
 
     constructor(props: Props){
 
@@ -36,33 +34,31 @@ export class ExperienceHostConfirmationPage {
         this.shopId    = props.shopId
         this.locale    = props.locale
         this.cart      = props.cart
-        this.bookingId = props.bookingId
 
         // Timeout for loading client
         this.isWaitingForClientToLoad = true
         setTimeout(() => {
             if(this.isWaitingForClientToLoad){
-                props.onInitEnded(false)
+                props.listenForClientInitRequestEnded(false)
                 this.isWaitingForClientToLoad = false
             }
         }, Constants.CLIENT_LOADING_TIMEOUT)
 
         // Waiting for client
-        initListener('client')
-        onInit(this.messageId, (source: MessageEventSource) => {
+        listenForClientInitRequest(this.messageId, (source: MessageEventSource, version: string) => {
 
             this.source = source
+            this.version = version
 
             // Send the context to client
-            sendExperienceInit({
+            respondExperienceClientInitRequest({
                 messageId: this.messageId,
                 source: this.source,
                 payload: {
                     sessionId: this.sessionId,
                     shopId:    this.shopId,
                     locale:    this.locale,
-                    cart:      this.cart,
-                    bookingId: this.bookingId
+                    cart:      this.cart
                 }
             })
             
@@ -70,7 +66,7 @@ export class ExperienceHostConfirmationPage {
             if(this.isWaitingForClientToLoad){
                 this.isWaitingForClientToLoad = false
                 setTimeout(() => {
-                    props.onInitEnded(true)
+                    props.listenForClientInitRequestEnded(true)
                 }, 100)
             }
 
@@ -96,6 +92,6 @@ export class ExperienceHostConfirmationPage {
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}`       +
         `&locale=${this.locale}`       +
-        `&target=${AppTarget.EXPERIENCE_CONFIRMATION_PAGE}`
+        `&target=${AppTarget.EXPERIENCE_BOOKING_FORM}`
 
 }

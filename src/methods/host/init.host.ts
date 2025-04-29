@@ -1,13 +1,17 @@
-import { getEvent } from '../../helpers'
+import { getEvent, initWindowMessageListener } from '../../helpers'
 import { Action, Message } from '../../types'
 
-export const onInit = (messageId: string, callback: (source: MessageEventSource) => void) => {
+export const listenForClientInitRequest = (
+    messageId: string,
+    callback: (source: MessageEventSource, version: string) => void
+) => {
+    initWindowMessageListener()
     window.addEventListener(getEvent(messageId, Action.INIT), (e: any) => {
-        callback(e.detail.event.source)
+        callback(e.detail.event.source, e.detail.event.data.payload.version ?? '0.1.0')
     })
 }
 
-export const sendAdminInit = (
+export const respondAdminClientInitRequest = (
     messageId: string,
     source: MessageEventSource | null,
     shopId: string,
@@ -25,7 +29,7 @@ export const sendAdminInit = (
     source?.postMessage(data, { targetOrigin: '*' })
 }
 
-export const sendExperienceInit = (attr: {
+export const respondExperienceClientInitRequest = (attr: {
     messageId: string,
     source: MessageEventSource | null,
     payload: object

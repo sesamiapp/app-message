@@ -1,4 +1,4 @@
-import { getToken, initPageSizeListener } from '../../../methods/client'
+import { getToken, listenToHostPageSizeChange } from '../../../methods/client'
 
 export type AdminClientBaseProps = {
     messageId: string,
@@ -19,7 +19,7 @@ export class AdminClientBase {
         this.messageId = props.messageId
         this.shopId = props.shopId
         this.locale = props.locale
-        initPageSizeListener(this.messageId)
+        listenToHostPageSizeChange(this.messageId)
     }
 
     getToken = () => getToken(this.messageId)

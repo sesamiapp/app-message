@@ -1,5 +1,5 @@
-import { getUrlParam, initListener } from '../../../helpers'
-import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { getUrlParam } from '../../../helpers'
+import { acceptNext, requestHostForInit, listenToHostPageSizeChange, onNext, rejectNext } from '../../../methods/client'
 import { Resource } from '../../../types'
 
 type Props = {
@@ -17,16 +17,16 @@ type Props = {
 
 export class ExperienceBeforeCart {
 
-    protected messageId: string
-    private sessionId: string
-    private shopId: string
-    private locale: string
-    private serviceId: string
-    private variantId: string
-    private quantity: number
-    private resources: Resource[]
-    private timezone: string
-    private slot: Date
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    serviceId: string
+    variantId: string
+    quantity: number
+    resources: Resource[]
+    timezone: string
+    slot: Date
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
@@ -39,9 +39,8 @@ export class ExperienceBeforeCart {
     getSlot      = () => this.slot
 
     static init = async () => {
-        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
-        const payload: any = await getInit(messageId)
+        const payload: any = await requestHostForInit(messageId)
         return new ExperienceBeforeCart({
             messageId,
             sessionId: payload.sessionId,
@@ -67,7 +66,7 @@ export class ExperienceBeforeCart {
         this.resources = props.resources
         this.timezone  = props.timezone
         this.slot      = props.slot
-        initPageSizeListener(this.messageId)
+        listenToHostPageSizeChange(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

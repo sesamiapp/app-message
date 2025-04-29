@@ -1,4 +1,4 @@
-import { onGetToken, onHeight, onInit, sendAdminInit, sendToken } from '../../../methods/host'
+import { onGetToken, onHeight, sendToken } from '../../../methods/host'
 import { initListener, isTokenExpired } from '../../../helpers'
 import { Constants } from '../../../constants'
 
@@ -7,7 +7,7 @@ export type AdminHostBaseProps = {
     shopId: string
     locale: string
     extra?: object
-    onInitEnded: (isInitialized: boolean) => void
+    listenForClientInitRequestEnded: (isInitialized: boolean) => void
     getToken: () => Promise<string | null>
     onHeightChange?: (height: number) => void
 }
@@ -35,14 +35,14 @@ export class AdminHostBase {
         this.isWaitingForClientToLoad = true
         setTimeout(() => {
             if(this.isWaitingForClientToLoad){
-                props.onInitEnded(false)
+                props.listenForClientInitRequestEnded(false)
                 this.isWaitingForClientToLoad = false
             }
         }, Constants.CLIENT_LOADING_TIMEOUT)
 
         // Waiting for client
-        initListener('client')
-        onInit(this.messageId, (source: MessageEventSource) => {
+        initListener()
+        listenForClientInitRequest(this.messageId, (source: MessageEventSource) => {
 
             this.source = source
 
@@ -59,7 +59,7 @@ export class AdminHostBase {
             if(this.isWaitingForClientToLoad){
                 this.isWaitingForClientToLoad = false
                 setTimeout(() => {
-                    props.onInitEnded(true)
+                    props.listenForClientInitRequestEnded(true)
                 }, 100)
             }
             

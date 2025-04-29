@@ -1,5 +1,5 @@
-import { getUrlParam, initListener } from '../../../helpers'
-import { acceptNext, getInit, initPageSizeListener, onNext, rejectNext } from '../../../methods/client'
+import { getUrlParam } from '../../../helpers'
+import { acceptNext, requestHostForInit, listenToHostPageSizeChange, onNext, rejectNext } from '../../../methods/client'
 import { CartItem } from '../../../types'
 
 type Props = {
@@ -11,14 +11,14 @@ type Props = {
     bookingId: string
 }
 
-export class ExperienceConfirmationPage {
+export class ExperienceBookingSuccess {
 
-    protected messageId: string
-    private sessionId: string
-    private shopId: string
-    private locale: string
-    private cart: CartItem[]
-    private bookingId: string
+    messageId: string
+    sessionId: string
+    shopId: string
+    locale: string
+    cart: CartItem[]
+    bookingId: string
 
     getSessionId = () => this.sessionId
     getShopId    = () => this.shopId
@@ -27,10 +27,9 @@ export class ExperienceConfirmationPage {
     getBookingId = () => this.bookingId
 
     static init = async () => {
-        initListener('host')
         const messageId = getUrlParam('messageId') ?? ''
-        const payload: any = await getInit(messageId)
-        return new ExperienceConfirmationPage({
+        const payload: any = await requestHostForInit(messageId)
+        return new ExperienceBookingSuccess({
             messageId,
             sessionId: payload.sessionId,
             shopId: payload.shopId,
@@ -47,7 +46,7 @@ export class ExperienceConfirmationPage {
         this.locale    = props.locale
         this.cart      = props.cart
         this.bookingId = props.bookingId
-        initPageSizeListener(this.messageId)
+        listenToHostPageSizeChange(this.messageId)
     }
     
     onConfirm = (callback: () => void) => onNext(this.messageId, callback)

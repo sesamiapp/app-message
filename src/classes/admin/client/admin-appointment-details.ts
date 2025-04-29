@@ -1,5 +1,5 @@
 import { AdminClientBase, AdminClientBaseProps } from './admin-client-base'
-import { getInit, showNotification } from '../../../methods/client'
+import { requestHostForInit, showNotification } from '../../../methods/client'
 import { getUrlParam, initListener } from '../../../helpers'
 import { NotificationType } from '../../../types'
 
@@ -15,9 +15,9 @@ export class AdminAppointmentDetails extends AdminClientBase {
     }
     
     static init = async () => {
-        initListener('host')
+        initListener()
         const messageId = getUrlParam('messageId') ?? ''
-        const payload: any = await getInit(messageId)
+        const payload: any = await requestHostForInit(messageId)
         return new AdminAppointmentDetails({
             messageId,
             shopId: payload.shopId,

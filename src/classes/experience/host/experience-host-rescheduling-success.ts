@@ -1,4 +1,4 @@
-import { askNext, listenForClientInitRequest, onHeight, respondExperienceClientInitRequest } from '../../../methods/host'
+import { askNext, onHeight, listenForClientInitRequest, respondExperienceClientInitRequest } from '../../../methods/host'
 import { Constants } from '../../../constants'
 import { AppTarget, Resource } from '../../../types'
 
@@ -8,6 +8,8 @@ type Props = {
     sessionId: string
     shopId: string
     locale: string
+    appointmentId: string
+    locationId: string
     serviceId: string
     variantId: string
     quantity: number
@@ -18,7 +20,7 @@ type Props = {
     onHeightChange?: (height: number) => void
 }
 
-export class ExperienceHostBeforeCart {
+export class ExperienceHostReschedulingSuccess {
 
     url: string
     messageId: string
@@ -27,6 +29,8 @@ export class ExperienceHostBeforeCart {
     sessionId: string
     shopId: string
     locale: string
+    appointmentId: string
+    locationId: string
     serviceId: string
     variantId: string
     quantity: number
@@ -38,17 +42,19 @@ export class ExperienceHostBeforeCart {
 
     constructor(props: Props){
 
-        this.url       = props.url
-        this.messageId = props.messageId
-        this.sessionId = props.sessionId
-        this.shopId    = props.shopId
-        this.locale    = props.locale
-        this.serviceId = props.serviceId
-        this.variantId = props.variantId
-        this.quantity  = props.quantity
-        this.resources = props.resources
-        this.timezone  = props.timezone
-        this.slot      = props.slot
+        this.url           = props.url
+        this.messageId     = props.messageId
+        this.sessionId     = props.sessionId
+        this.shopId        = props.shopId
+        this.locale        = props.locale
+        this.appointmentId = props.appointmentId
+        this.locationId    = props.locationId
+        this.serviceId     = props.serviceId
+        this.variantId     = props.variantId
+        this.quantity      = props.quantity
+        this.resources     = props.resources
+        this.timezone      = props.timezone
+        this.slot          = props.slot
 
         // Timeout for loading client
         this.isWaitingForClientToLoad = true
@@ -70,15 +76,17 @@ export class ExperienceHostBeforeCart {
                 messageId: this.messageId,
                 source: this.source,
                 payload: {
-                    sessionId: this.sessionId,
-                    shopId:    this.shopId,
-                    locale:    this.locale,
-                    serviceId: this.serviceId,
-                    variantId: this.variantId,
-                    quantity:  this.quantity,
-                    resources: this.resources,
-                    timezone:  this.timezone,
-                    slot:      this.slot
+                    sessionId:     this.sessionId,
+                    shopId:        this.shopId,
+                    locale:        this.locale,
+                    appointmentId: this.appointmentId,
+                    locationId:    this.locationId,
+                    serviceId:     this.serviceId,
+                    variantId:     this.variantId,
+                    quantity:      this.quantity,
+                    resources:     this.resources,
+                    timezone:      this.timezone,
+                    slot:          this.slot
                 }
             })
             
@@ -112,12 +120,6 @@ export class ExperienceHostBeforeCart {
         `&sessionId=${this.sessionId}` +
         `&shopId=${this.shopId}`       +
         `&locale=${this.locale}`       +
-        `?serviceId=${this.serviceId}` +
-        `?variantId=${this.variantId}` +
-        `?quantity=${this.quantity}`   +
-        `&resources=${JSON.stringify(this.resources.map(resource => resource.id))}` +
-        `&timezone=${this.timezone}`   +
-        `&slot=${this.slot.getTime()}` +
-        `&target=${AppTarget.EXPERIENCE_BEFORE_CART}`
+        `&target=${AppTarget.EXPERIENCE_BOOKING_SUCCESS}`
 
 }
